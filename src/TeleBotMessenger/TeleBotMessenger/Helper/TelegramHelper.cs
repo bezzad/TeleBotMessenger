@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
-using TeleBotMessenger.Core.Telegram;
+using TeleBotMessenger.Core;
 using Telegram.Bot.Types;
 
 namespace TeleBotMessenger.Helper

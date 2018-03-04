@@ -1,14 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Threading.Tasks;
-using TeleBotMessenger.Helper;
-using TeleBotMessenger.Properties;
-using Telegram.Bot.Exceptions;
-using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
-
-namespace TeleBotMessenger.Core.Telegram
+﻿namespace TeleBotMessenger.Core
 {
     // BotManager.Helper
     public partial class BotManager

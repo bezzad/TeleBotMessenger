@@ -1,9 +1,8 @@
-﻿using System;
-using TeleBotMessenger.Helper;
+﻿using TeleBotMessenger.Helper;
 using Telegram.Bot.Types.InlineKeyboardButtons;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace TeleBotMessenger.Core.Telegram
+namespace TeleBotMessenger.Core
 {
     public class BotKeyboardCollection
     {

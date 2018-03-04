@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace TeleBotMessenger.Core.Telegram
+﻿namespace TeleBotMessenger.Core
 {
     // BotManager.MessageMission
     public partial class BotManager

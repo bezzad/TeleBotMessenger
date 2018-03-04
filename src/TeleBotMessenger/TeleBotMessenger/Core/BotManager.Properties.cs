@@ -1,7 +1,7 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace TeleBotMessenger.Core.Telegram
+namespace TeleBotMessenger.Core
 {
     // BotManager Properties
     public partial class BotManager
@@ -17,7 +17,7 @@ namespace TeleBotMessenger.Core.Telegram
         protected int MaxRowsPerPage { get; set; } = 10;
 
 #if SingleUser
-           private const int TestUserId = 302170; //behzad
+        private const int TestUserId = 302170; // my id
 #endif
 
         #region Constructors
