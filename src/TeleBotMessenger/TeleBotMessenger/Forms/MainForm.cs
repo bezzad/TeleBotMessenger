@@ -61,7 +61,7 @@ namespace TeleBotMessenger.Forms
             try
             {
                 var count = await TelegramHelper.BotManager.Bot.GetChatMembersCountAsync("@" + txtChannelName.Value);
-                MessageBox.Show("Connected successful");
+                MessageBox.Show("Channel or group id is true!");
             }
             catch (Exception ex)
             {

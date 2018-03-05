@@ -11,10 +11,8 @@ namespace TeleBotMessenger.Model
     {
         private readonly Button _addButton;
         private const int ButtonSpaces = 5;
-
         public List<Button> Buttons { get; set; } = new List<Button>();
-
-
+        
         public InlinePanel()
         {
             Size = new Size(250, 38);
@@ -41,7 +39,6 @@ namespace TeleBotMessenger.Model
             OrderColumns();
         }
 
-
         public void AddColumn()
         {
             // 
@@ -50,7 +47,7 @@ namespace TeleBotMessenger.Model
             var btnCol = new Button
             {
                 Cursor = Cursors.Hand,
-                Text = "Button"
+                Text = @"Button"
             };
             btnCol.Click += OnEdit;
 
@@ -59,11 +56,16 @@ namespace TeleBotMessenger.Model
 
         private void OnEdit(object sender, EventArgs e)
         {
-            var form = InlineEditFrom.GetInstance();
-            form.ShowDialog(this);
+            if (sender is Button btn)
+            {
+                var form = InlineEditFrom.GetInstance(btn.Text == @"Button" ? null : btn.Text);
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    btn.Text = form.Value;
+                }
+            }
         }
         
-
         public void OrderColumns()
         {
             Controls.Clear();

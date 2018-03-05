@@ -5,8 +5,10 @@ namespace TeleBotMessenger.Forms
     public partial class InlineEditFrom : Form
     {
         private static readonly InlineEditFrom Instance = new InlineEditFrom();
-        public static InlineEditFrom GetInstance()
+        public static InlineEditFrom GetInstance(string value)
         {
+            Instance.Value = value;
+            Instance.txtVal.Value = value;
             return Instance;
         } 
 
