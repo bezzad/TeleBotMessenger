@@ -8,7 +8,8 @@ namespace TeleBotMessenger.Model
 
         public override string ToString()
         {
-            return $"{Message.MessageId}: {Message.Text.Substring(0, Math.Min(10, Message.Text.Length))}";
+            var text = Message.Text ?? Message.Caption;
+            return $"{Message.MessageId}: {text.Substring(0, Math.Min(10, text.Length))}";
         }
 
         public static TelegramMessage Factory(Telegram.Bot.Types.Message msg)

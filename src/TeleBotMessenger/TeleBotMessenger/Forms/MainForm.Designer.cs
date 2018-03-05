@@ -33,6 +33,9 @@
             this.txtBotToken = new Windows.Forms.HintTextBox(this.components);
             this.btnConnect = new System.Windows.Forms.Button();
             this.gbTools = new System.Windows.Forms.GroupBox();
+            this.btnAlignRight = new System.Windows.Forms.Button();
+            this.btnAlignLeft = new System.Windows.Forms.Button();
+            this.txtChannelName = new Windows.Forms.HintTextBox(this.components);
             this.layout = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddRow = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
@@ -43,7 +46,6 @@
             this.rtxtText = new System.Windows.Forms.RichTextBox();
             this.btnTest = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtChannelName = new Windows.Forms.HintTextBox(this.components);
             this.gbConnect.SuspendLayout();
             this.gbTools.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pix)).BeginInit();
@@ -85,10 +87,10 @@
             // 
             this.btnConnect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConnect.Location = new System.Drawing.Point(391, 23);
+            this.btnConnect.Location = new System.Drawing.Point(391, 20);
             this.btnConnect.Margin = new System.Windows.Forms.Padding(2);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(74, 23);
+            this.btnConnect.Size = new System.Drawing.Size(74, 29);
             this.btnConnect.TabIndex = 7;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -96,6 +98,8 @@
             // 
             // gbTools
             // 
+            this.gbTools.Controls.Add(this.btnAlignRight);
+            this.gbTools.Controls.Add(this.btnAlignLeft);
             this.gbTools.Controls.Add(this.txtChannelName);
             this.gbTools.Controls.Add(this.layout);
             this.gbTools.Controls.Add(this.btnAddRow);
@@ -119,14 +123,56 @@
             this.gbTools.TabStop = false;
             this.gbTools.Text = "Tools";
             // 
+            // btnAlignRight
+            // 
+            this.btnAlignRight.BackgroundImage = global::TeleBotMessenger.Properties.Resources.align_right;
+            this.btnAlignRight.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAlignRight.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAlignRight.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAlignRight.Location = new System.Drawing.Point(27, 300);
+            this.btnAlignRight.Name = "btnAlignRight";
+            this.btnAlignRight.Size = new System.Drawing.Size(30, 30);
+            this.btnAlignRight.TabIndex = 17;
+            this.btnAlignRight.UseVisualStyleBackColor = true;
+            this.btnAlignRight.Click += new System.EventHandler(this.btnAlignRight_Click);
+            // 
+            // btnAlignLeft
+            // 
+            this.btnAlignLeft.BackgroundImage = global::TeleBotMessenger.Properties.Resources.align_left;
+            this.btnAlignLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnAlignLeft.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAlignLeft.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAlignLeft.Location = new System.Drawing.Point(27, 271);
+            this.btnAlignLeft.Name = "btnAlignLeft";
+            this.btnAlignLeft.Size = new System.Drawing.Size(30, 30);
+            this.btnAlignLeft.TabIndex = 16;
+            this.btnAlignLeft.UseVisualStyleBackColor = true;
+            this.btnAlignLeft.Click += new System.EventHandler(this.btnAlignLeft_Click);
+            // 
+            // txtChannelName
+            // 
+            this.txtChannelName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtChannelName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            this.txtChannelName.EnterToTab = false;
+            this.txtChannelName.ForeColor = System.Drawing.Color.Gray;
+            this.txtChannelName.HintColor = System.Drawing.Color.Gray;
+            this.txtChannelName.HintValue = "Channel or Group";
+            this.txtChannelName.Location = new System.Drawing.Point(36, 24);
+            this.txtChannelName.Name = "txtChannelName";
+            this.txtChannelName.Size = new System.Drawing.Size(236, 23);
+            this.txtChannelName.TabIndex = 15;
+            this.txtChannelName.Text = "Channel or Group";
+            this.txtChannelName.TextForeColor = System.Drawing.Color.Black;
+            this.txtChannelName.Value = "";
+            // 
             // layout
             // 
             this.layout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.layout.AutoScroll = true;
-            this.layout.Location = new System.Drawing.Point(2, 433);
+            this.layout.Location = new System.Drawing.Point(2, 430);
             this.layout.Name = "layout";
-            this.layout.Size = new System.Drawing.Size(279, 151);
+            this.layout.Size = new System.Drawing.Size(279, 163);
             this.layout.TabIndex = 14;
             // 
             // btnAddRow
@@ -135,9 +181,9 @@
             this.btnAddRow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAddRow.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddRow.Location = new System.Drawing.Point(5, 378);
+            this.btnAddRow.Location = new System.Drawing.Point(27, 358);
             this.btnAddRow.Name = "btnAddRow";
-            this.btnAddRow.Size = new System.Drawing.Size(44, 49);
+            this.btnAddRow.Size = new System.Drawing.Size(30, 30);
             this.btnAddRow.TabIndex = 12;
             this.btnAddRow.UseVisualStyleBackColor = true;
             this.btnAddRow.Click += new System.EventHandler(this.btnAddRow_Click);
@@ -161,9 +207,9 @@
             this.btnAddLink.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAddLink.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddLink.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddLink.Location = new System.Drawing.Point(5, 271);
+            this.btnAddLink.Location = new System.Drawing.Point(27, 329);
             this.btnAddLink.Name = "btnAddLink";
-            this.btnAddLink.Size = new System.Drawing.Size(44, 40);
+            this.btnAddLink.Size = new System.Drawing.Size(30, 30);
             this.btnAddLink.TabIndex = 7;
             this.btnAddLink.UseVisualStyleBackColor = true;
             this.btnAddLink.Click += new System.EventHandler(this.btnAddLink_Click);
@@ -237,22 +283,6 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "@";
             // 
-            // txtChannelName
-            // 
-            this.txtChannelName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtChannelName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
-            this.txtChannelName.EnterToTab = false;
-            this.txtChannelName.ForeColor = System.Drawing.Color.Gray;
-            this.txtChannelName.HintColor = System.Drawing.Color.Gray;
-            this.txtChannelName.HintValue = "Channel or Group";
-            this.txtChannelName.Location = new System.Drawing.Point(36, 24);
-            this.txtChannelName.Name = "txtChannelName";
-            this.txtChannelName.Size = new System.Drawing.Size(236, 23);
-            this.txtChannelName.TabIndex = 15;
-            this.txtChannelName.Text = "Channel or Group";
-            this.txtChannelName.TextForeColor = System.Drawing.Color.Black;
-            this.txtChannelName.Value = "";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -261,7 +291,6 @@
             this.Controls.Add(this.gbTools);
             this.Controls.Add(this.gbConnect);
             this.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -292,6 +321,8 @@
         private System.Windows.Forms.FlowLayoutPanel layout;
         private Windows.Forms.HintTextBox txtBotToken;
         private Windows.Forms.HintTextBox txtChannelName;
+        private System.Windows.Forms.Button btnAlignLeft;
+        private System.Windows.Forms.Button btnAlignRight;
     }
 }
 

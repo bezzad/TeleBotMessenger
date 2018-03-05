@@ -1,33 +1,48 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
+using TeleBotMessenger.Model;
 
 namespace TeleBotMessenger.Forms
 {
     public partial class InlineEditFrom : Form
     {
-        private static readonly InlineEditFrom Instance = new InlineEditFrom();
-        public static InlineEditFrom GetInstance(string value)
-        {
-            Instance.Value = value;
-            Instance.txtVal.Value = value;
-            return Instance;
-        } 
+        public InlineUrlButton Value { get; set; }
 
-        public string Value { get; set; }
 
-        public InlineEditFrom()
+        private InlineEditFrom()
         {
             InitializeComponent();
         }
 
-        private void btnCancel_Click(object sender, System.EventArgs e)
+        public static InlineEditFrom GetInstance(InlineUrlButton value)
         {
-            Value = null;
+            var instance = new InlineEditFrom { Value = value };
+
+            if (value.Text != @"Button" && value.Address != null)
+            {
+                instance.txtValue.Value = value.Text;
+                instance.txtAddress.Value = value.Address.ToString();
+            }
+
+            return instance;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
             Close();
         }
 
-        private void btnOk_Click(object sender, System.EventArgs e)
+        private void btnOk_Click(object sender, EventArgs e)
         {
-            Value = txtVal.Value;
+            try
+            {
+                Value.Text = txtValue.Value;
+                Value.Address = new Uri(txtAddress.Value);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Change In-line Button Address", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             Close();
         }
     }

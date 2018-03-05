@@ -62,6 +62,9 @@
     <Compile Include="Forms\InlineEditFrom.Designer.cs">
       <DependentUpon>InlineEditFrom.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\InlineButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Model\InlinePanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -118,16 +121,22 @@
     <None Include="Resources\link_icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\image_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\background.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\add_row.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\add_column.png" />
+    <None Include="Resources\negative.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\align_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\align_right.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

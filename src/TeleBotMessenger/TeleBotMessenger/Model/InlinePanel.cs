@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using TeleBotMessenger.Forms;
 using TeleBotMessenger.Properties;
 
 namespace TeleBotMessenger.Model
@@ -10,9 +10,10 @@ namespace TeleBotMessenger.Model
     public class InlinePanel : Panel
     {
         private readonly Button _addButton;
+        private readonly Button _delButton;
         private const int ButtonSpaces = 5;
-        public List<Button> Buttons { get; set; } = new List<Button>();
-        
+        public List<InlineUrlButton> Buttons { get; set; } = new List<InlineUrlButton>();
+
         public InlinePanel()
         {
             Size = new Size(250, 38);
@@ -21,56 +22,62 @@ namespace TeleBotMessenger.Model
             // 
             _addButton = new Button
             {
-                BackgroundImage = Resources.add_column,
+                BackgroundImage = Resources.plus,
                 BackgroundImageLayout = ImageLayout.Zoom,
                 Cursor = Cursors.Hand,
                 FlatStyle = FlatStyle.Flat,
-                Location = new Point(0, 3),
-                Size = new Size(44, 32),
-                UseVisualStyleBackColor = true
+                Location = new Point(0, 9),
+                Size = new Size(20, 20)
             };
             _addButton.Click += OnAdd;
+            // 
+            // btnAddColumn
+            // 
+            _delButton = new Button
+            {
+                BackgroundImage = Resources.negative,
+                BackgroundImageLayout = ImageLayout.Zoom,
+                Cursor = Cursors.Hand,
+                FlatStyle = FlatStyle.Flat,
+                Location = new Point(24, 9),
+                Size = new Size(20, 20)
+            };
+            _delButton.Click += OnDel;
+            //
+            // Add first button
+            //
             _addButton.PerformClick();
+        }
+
+        private void OnDel(object sender, EventArgs e)
+        {
+            var lastBtn = Buttons.LastOrDefault();
+            if (Buttons.Count > 1)
+            {
+                Buttons.Remove(lastBtn);
+                OrderColumns();
+            }
+            else // last button just remained
+            {
+                Buttons.Remove(lastBtn);
+                Controls.Clear();
+                Dispose();
+            }
         }
 
         private void OnAdd(object sender, EventArgs e)
         {
-            AddColumn();
+            Buttons.Add(new InlineUrlButton());
             OrderColumns();
         }
 
-        public void AddColumn()
-        {
-            // 
-            // btnCol
-            // 
-            var btnCol = new Button
-            {
-                Cursor = Cursors.Hand,
-                Text = @"Button"
-            };
-            btnCol.Click += OnEdit;
-
-            Buttons.Add(btnCol);
-        }
-
-        private void OnEdit(object sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                var form = InlineEditFrom.GetInstance(btn.Text == @"Button" ? null : btn.Text);
-                if (form.ShowDialog(this) == DialogResult.OK)
-                {
-                    btn.Text = form.Value;
-                }
-            }
-        }
-        
         public void OrderColumns()
         {
             Controls.Clear();
-            var initX = _addButton.Width + ButtonSpaces;
+            var initX = _delButton.Location.X + _delButton.Width + ButtonSpaces;
             Controls.Add(_addButton);
+            Controls.Add(_delButton);
+
             var w = ((Size.Width - initX) / Buttons.Count) - ButtonSpaces;
             var h = Size.Height - 8;
             for (var i = 0; i < Buttons.Count; i++)
@@ -81,5 +88,6 @@ namespace TeleBotMessenger.Model
                 Controls.Add(button);
             }
         }
+
     }
 }

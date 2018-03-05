@@ -63,9 +63,9 @@ namespace TeleBotMessenger.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap add_column {
+        internal static System.Drawing.Bitmap add_row {
             get {
-                object obj = ResourceManager.GetObject("add_column", resourceCulture);
+                object obj = ResourceManager.GetObject("add_row", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,19 @@ namespace TeleBotMessenger.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap add_row {
+        internal static System.Drawing.Bitmap align_left {
             get {
-                object obj = ResourceManager.GetObject("add_row", resourceCulture);
+                object obj = ResourceManager.GetObject("align_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap align_right {
+            get {
+                object obj = ResourceManager.GetObject("align_right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -101,6 +111,16 @@ namespace TeleBotMessenger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap negative {
+            get {
+                object obj = ResourceManager.GetObject("negative", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image Files(*.PNG;*.BMP;*.JPG;*.GIF)|*.PNG;*.BMP;*.JPG;*.GIF|All files (*.*)|*.*.
         /// </summary>
         internal static string PicBoxFilter {
@@ -115,6 +135,16 @@ namespace TeleBotMessenger.Properties {
         internal static string PixBoxTitle {
             get {
                 return ResourceManager.GetString("PixBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap plus {
+            get {
+                object obj = ResourceManager.GetObject("plus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
