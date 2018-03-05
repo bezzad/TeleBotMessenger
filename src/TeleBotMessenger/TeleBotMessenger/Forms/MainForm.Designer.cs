@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.gbConnect = new System.Windows.Forms.GroupBox();
+            this.txtBotToken = new Windows.Forms.HintTextBox(this.components);
             this.btnConnect = new System.Windows.Forms.Button();
-            this.txtBotToken = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.gbTools = new System.Windows.Forms.GroupBox();
+            this.layout = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddRow = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnAddLink = new System.Windows.Forms.Button();
@@ -41,9 +42,8 @@
             this.btnSend = new System.Windows.Forms.Button();
             this.rtxtText = new System.Windows.Forms.RichTextBox();
             this.btnTest = new System.Windows.Forms.Button();
-            this.txtChannelName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.layout = new System.Windows.Forms.FlowLayoutPanel();
+            this.txtChannelName = new Windows.Forms.HintTextBox(this.components);
             this.gbConnect.SuspendLayout();
             this.gbTools.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pix)).BeginInit();
@@ -51,9 +51,8 @@
             // 
             // gbConnect
             // 
-            this.gbConnect.Controls.Add(this.btnConnect);
             this.gbConnect.Controls.Add(this.txtBotToken);
-            this.gbConnect.Controls.Add(this.label2);
+            this.gbConnect.Controls.Add(this.btnConnect);
             this.gbConnect.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbConnect.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.gbConnect.ForeColor = System.Drawing.Color.RoyalBlue;
@@ -66,11 +65,27 @@
             this.gbConnect.TabStop = false;
             this.gbConnect.Text = "Connection";
             // 
+            // txtBotToken
+            // 
+            this.txtBotToken.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtBotToken.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            this.txtBotToken.EnterToTab = false;
+            this.txtBotToken.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.txtBotToken.HintColor = System.Drawing.Color.RoyalBlue;
+            this.txtBotToken.HintValue = "Bot Token";
+            this.txtBotToken.Location = new System.Drawing.Point(12, 23);
+            this.txtBotToken.Name = "txtBotToken";
+            this.txtBotToken.Size = new System.Drawing.Size(374, 23);
+            this.txtBotToken.TabIndex = 8;
+            this.txtBotToken.Text = "Bot Token";
+            this.txtBotToken.TextForeColor = System.Drawing.Color.Black;
+            this.txtBotToken.Value = "";
+            // 
             // btnConnect
             // 
             this.btnConnect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConnect.Location = new System.Drawing.Point(390, 24);
+            this.btnConnect.Location = new System.Drawing.Point(391, 23);
             this.btnConnect.Margin = new System.Windows.Forms.Padding(2);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(74, 23);
@@ -79,30 +94,9 @@
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
-            // txtBotToken
-            // 
-            this.txtBotToken.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtBotToken.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
-            this.txtBotToken.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.txtBotToken.Location = new System.Drawing.Point(86, 24);
-            this.txtBotToken.Margin = new System.Windows.Forms.Padding(2);
-            this.txtBotToken.Name = "txtBotToken";
-            this.txtBotToken.Size = new System.Drawing.Size(300, 23);
-            this.txtBotToken.TabIndex = 6;
-            this.txtBotToken.Text = "487322303:AAE0VfVSlJwa1-APuEKLO4lvLs4hHPmTxko";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 26);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(63, 15);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Bot Token:";
-            // 
             // gbTools
             // 
+            this.gbTools.Controls.Add(this.txtChannelName);
             this.gbTools.Controls.Add(this.layout);
             this.gbTools.Controls.Add(this.btnAddRow);
             this.gbTools.Controls.Add(this.btnEdit);
@@ -112,7 +106,6 @@
             this.gbTools.Controls.Add(this.btnSend);
             this.gbTools.Controls.Add(this.rtxtText);
             this.gbTools.Controls.Add(this.btnTest);
-            this.gbTools.Controls.Add(this.txtChannelName);
             this.gbTools.Controls.Add(this.label1);
             this.gbTools.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbTools.Enabled = false;
@@ -125,6 +118,16 @@
             this.gbTools.TabIndex = 6;
             this.gbTools.TabStop = false;
             this.gbTools.Text = "Tools";
+            // 
+            // layout
+            // 
+            this.layout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.layout.AutoScroll = true;
+            this.layout.Location = new System.Drawing.Point(2, 433);
+            this.layout.Name = "layout";
+            this.layout.Size = new System.Drawing.Size(279, 151);
+            this.layout.TabIndex = 14;
             // 
             // btnAddRow
             // 
@@ -215,7 +218,7 @@
             // 
             this.btnTest.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTest.Location = new System.Drawing.Point(390, 25);
+            this.btnTest.Location = new System.Drawing.Point(277, 24);
             this.btnTest.Margin = new System.Windows.Forms.Padding(2);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(74, 23);
@@ -224,36 +227,31 @@
             this.btnTest.UseVisualStyleBackColor = true;
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
-            // txtChannelName
-            // 
-            this.txtChannelName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.txtChannelName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
-            this.txtChannelName.Location = new System.Drawing.Point(150, 25);
-            this.txtChannelName.Margin = new System.Windows.Forms.Padding(2);
-            this.txtChannelName.Name = "txtChannelName";
-            this.txtChannelName.Size = new System.Drawing.Size(236, 23);
-            this.txtChannelName.TabIndex = 2;
-            this.txtChannelName.Text = "testtt11";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(18, 27);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(134, 15);
+            this.label1.Size = new System.Drawing.Size(18, 15);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Channels or Groups:   @";
+            this.label1.Text = "@";
             // 
-            // layout
+            // txtChannelName
             // 
-            this.layout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.layout.AutoScroll = true;
-            this.layout.Location = new System.Drawing.Point(2, 433);
-            this.layout.Name = "layout";
-            this.layout.Size = new System.Drawing.Size(279, 151);
-            this.layout.TabIndex = 14;
+            this.txtChannelName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.txtChannelName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.RecentlyUsedList;
+            this.txtChannelName.EnterToTab = false;
+            this.txtChannelName.ForeColor = System.Drawing.Color.Gray;
+            this.txtChannelName.HintColor = System.Drawing.Color.Gray;
+            this.txtChannelName.HintValue = "Channel or Group";
+            this.txtChannelName.Location = new System.Drawing.Point(36, 24);
+            this.txtChannelName.Name = "txtChannelName";
+            this.txtChannelName.Size = new System.Drawing.Size(236, 23);
+            this.txtChannelName.TabIndex = 15;
+            this.txtChannelName.Text = "Channel or Group";
+            this.txtChannelName.TextForeColor = System.Drawing.Color.Black;
+            this.txtChannelName.Value = "";
             // 
             // MainForm
             // 
@@ -281,11 +279,8 @@
 
         private System.Windows.Forms.GroupBox gbConnect;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.TextBox txtBotToken;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox gbTools;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtChannelName;
         private System.Windows.Forms.Button btnTest;
         private System.Windows.Forms.RichTextBox rtxtText;
         private System.Windows.Forms.Button btnSend;
@@ -295,6 +290,8 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnAddRow;
         private System.Windows.Forms.FlowLayoutPanel layout;
+        private Windows.Forms.HintTextBox txtBotToken;
+        private Windows.Forms.HintTextBox txtChannelName;
     }
 }
 

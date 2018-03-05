@@ -13,7 +13,7 @@ namespace TeleBotMessenger.Forms
     public partial class MainForm : Form
     {
         private User BotUser { get; set; }
-        private string ChannelName => "@" + txtChannelName.Text;
+        private string ChannelName => "@" + txtChannelName.Value;
         private Image MsgImage { get; set; }
 
         public MainForm()
@@ -29,7 +29,7 @@ namespace TeleBotMessenger.Forms
                 Cursor = Cursors.WaitCursor;
                 if (BotUser == null)
                 {
-                    BotUser = await TelegramHelper.StartBot(txtBotToken.Text);
+                    BotUser = await TelegramHelper.StartBot(txtBotToken.Value);
                     Text = $"{AssemblyInfo.Title} (@{BotUser.Username})";
                     btnConnect.Text = "Stop";
                     gbTools.Enabled = true;
@@ -60,7 +60,7 @@ namespace TeleBotMessenger.Forms
         {
             try
             {
-                var count = await TelegramHelper.BotManager.Bot.GetChatMembersCountAsync("@" + txtChannelName.Text);
+                var count = await TelegramHelper.BotManager.Bot.GetChatMembersCountAsync("@" + txtChannelName.Value);
                 MessageBox.Show("Connected successful");
             }
             catch (Exception ex)

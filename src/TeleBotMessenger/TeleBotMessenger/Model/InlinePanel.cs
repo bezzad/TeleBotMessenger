@@ -59,8 +59,8 @@ namespace TeleBotMessenger.Model
 
         private void OnEdit(object sender, EventArgs e)
         {
-            var form = InlineEditFrom.GetInstance((Button) sender);
-            form.Show();
+            var form = InlineEditFrom.GetInstance();
+            form.ShowDialog(this);
         }
         
 
