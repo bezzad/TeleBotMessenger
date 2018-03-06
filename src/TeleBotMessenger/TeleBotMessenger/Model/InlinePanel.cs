@@ -14,9 +14,9 @@ namespace TeleBotMessenger.Model
         private const int ButtonSpaces = 5;
         public List<InlineUrlButton> Buttons { get; set; } = new List<InlineUrlButton>();
 
-        public InlinePanel()
+        public InlinePanel(int width)
         {
-            Size = new Size(250, 38);
+            Size = new Size(width, 38);
             // 
             // btnAddColumn
             // 

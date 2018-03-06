@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using TeleBotMessenger.Forms;
+using TeleBotMessenger.Properties;
 
 namespace TeleBotMessenger.Model
 {
@@ -12,6 +14,11 @@ namespace TeleBotMessenger.Model
         {
             Cursor = Cursors.Hand;
             Text = @"Button";
+            BackColor = Color.FromArgb(53, 58, 64);
+            FlatStyle = FlatStyle.Popup;
+            ForeColor = Color.FromArgb(252, 252, 252);
+            Image = Resources.linking;
+            ImageAlign = ContentAlignment.TopRight;
             Click += OnEdit;
         }
 

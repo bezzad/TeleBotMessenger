@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using MaterialSkin;
+using MaterialSkin.Controls;
 using TeleBotMessenger.Helper;
 using TeleBotMessenger.Model;
 using TeleBotMessenger.Properties;
@@ -13,13 +15,24 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TeleBotMessenger.Forms
 {
-    public partial class MainForm : Form
+    public sealed partial class MainForm : MaterialForm
     {
         private User BotUser { get; set; }
-        private string ChannelName => "@" + txtChannelName.Value;
+        private string ChannelName => txtChannelName.Text.StartsWith("@") ? txtChannelName.Text : @"@" + txtChannelName.Text;
         private Image MsgImage { get; set; }
 
-        public IReplyMarkup GetGetKeyboardButtons()
+        public MainForm()
+        {
+            InitializeComponent();
+            Text += @" " + AssemblyInfo.Version.ToString(3);
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue800, Primary.Blue500, Accent.Pink200, TextShade.WHITE);
+        }
+
+
+        public IReplyMarkup GetKeyboardButtons()
         {
             var result = new List<InlineKeyboardButton[]>();
             foreach (InlinePanel panel in layout.Controls)
@@ -39,13 +52,6 @@ namespace TeleBotMessenger.Forms
             return new InlineKeyboardMarkup(result.ToArray());
         }
 
-
-        public MainForm()
-        {
-            InitializeComponent();
-        }
-
-
         private async void btnConnect_Click(object sender, EventArgs e)
         {
             try
@@ -53,42 +59,42 @@ namespace TeleBotMessenger.Forms
                 Cursor = Cursors.WaitCursor;
                 if (BotUser == null)
                 {
-                    BotUser = await TelegramHelper.StartBot(txtBotToken.Value);
-                    Text = $"{AssemblyInfo.Title} (@{BotUser.Username})";
-                    btnConnect.Text = "Stop";
-                    gbTools.Enabled = true;
+                    BotUser = await TelegramHelper.StartBot(txtBotToken.Text);
+                    txtBotToken.Text = @"@" + BotUser.Username;
+                    btnConnect.Text = @"Stop";
+                    pnlTools.Enabled = true;
                     txtBotToken.Enabled = false;
                 }
                 else
                 {
                     TelegramHelper.BotManager.Bot.StopReceiving();
                     BotUser = null;
-                    Text = AssemblyInfo.Title;
-                    btnConnect.Text = "Connect";
-                    gbTools.Enabled = false;
+                    txtBotToken.Text = TelegramHelper.BotManager.BotApiKey;
+                    btnConnect.Text = @"Connect";
+                    pnlTools.Enabled = false;
                     txtBotToken.Enabled = true;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Telegram Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Telegram Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 Cursor = Cursors.Default;
             }
         }
-        
+
         private async void btnTest_Click(object sender, EventArgs e)
         {
             try
             {
-                var count = await TelegramHelper.BotManager.Bot.GetChatMembersCountAsync("@" + txtChannelName.Value);
-                MessageBox.Show("Channel or group id is true!");
+                await TelegramHelper.BotManager.Bot.GetChatMembersCountAsync(ChannelName);
+                MessageBox.Show(@"Channel or group id is true!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Telegram Test Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Telegram Test Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -103,14 +109,14 @@ namespace TeleBotMessenger.Forms
                     using (var stream = new MemoryStream(MsgImage.ToByte()))
                     {
                         msg = await TelegramHelper.BotManager.Bot.SendPhotoAsync(ChannelName,
-                            new FileToSend(Guid.NewGuid().ToString(), stream), rtxtText.Text, 
-                            replyMarkup: GetGetKeyboardButtons());
+                            new FileToSend(Guid.NewGuid().ToString(), stream), rtxtText.Text,
+                            replyMarkup: GetKeyboardButtons());
                     }
                 }
                 else
                 {
                     msg = await TelegramHelper.BotManager.Bot.SendTextMessageAsync(
-                        ChannelName, rtxtText.Text, ParseMode.Html, replyMarkup: GetGetKeyboardButtons());
+                        ChannelName, rtxtText.Text, ParseMode.Html, replyMarkup: GetKeyboardButtons());
                 }
 
                 lstMessages.Items.Add(TelegramMessage.Factory(msg));
@@ -156,7 +162,7 @@ namespace TeleBotMessenger.Forms
 
         private void btnAddRow_Click(object sender, EventArgs e)
         {
-            layout.Controls.Add(new InlinePanel());
+            layout.Controls.Add(new InlinePanel(layout.Width - 20));
         }
 
         private void btnAlignLeft_Click(object sender, EventArgs e)
