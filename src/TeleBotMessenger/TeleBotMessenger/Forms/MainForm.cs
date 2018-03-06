@@ -30,8 +30,7 @@ namespace TeleBotMessenger.Forms
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue800, Primary.Blue500, Accent.Pink200, TextShade.WHITE);
         }
-
-
+        
         public IReplyMarkup GetKeyboardButtons()
         {
             var result = new List<InlineKeyboardButton[]>();
@@ -98,6 +97,56 @@ namespace TeleBotMessenger.Forms
             }
         }
 
+        
+
+        private void btnAlignLeft_Click(object sender, EventArgs e)
+        {
+            rtxtText.RightToLeft = RightToLeft.No;
+            rtxtText.Focus();
+        }
+        private void btnAlignRight_Click(object sender, EventArgs e)
+        {
+            rtxtText.RightToLeft = RightToLeft.Yes;
+            rtxtText.Focus();
+        }
+
+        private void btnAddLink_Click(object sender, EventArgs e)
+        {
+            rtxtText.SelectionColor = Color.DarkBlue;
+            var selectedText = rtxtText.SelectedText;
+            if (string.IsNullOrWhiteSpace(selectedText))
+                selectedText = @"link_name";
+            rtxtText.SelectedText = $"<a href='https://taaghche.ir/'>{selectedText}</a>";
+            rtxtText.SelectionColor = rtxtText.ForeColor;
+            rtxtText.Focus();
+        }
+
+        private void pix_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog()
+            {
+                CheckFileExists = true,
+                Filter = Resources.PicBoxFilter,
+                RestoreDirectory = true,
+                Title = Resources.PixBoxTitle
+            };
+
+            if (ofd.ShowDialog(this) == DialogResult.OK)
+            {
+                pix.BackgroundImage = MsgImage = Image.FromFile(ofd.FileName);
+            }
+            else
+            {
+                pix.BackgroundImage = Resources.background;
+                MsgImage = null;
+            }
+        }
+
+        private void btnAddRow_Click(object sender, EventArgs e)
+        {
+            layout.Controls.Add(new InlinePanel(layout.Width - 20));
+        }
+
         private async void btnSend_Click(object sender, EventArgs e)
         {
             try
@@ -129,50 +178,6 @@ namespace TeleBotMessenger.Forms
             {
                 Cursor = Cursors.Default;
             }
-        }
-
-        private void btnAddLink_Click(object sender, EventArgs e)
-        {
-            rtxtText.SelectionColor = Color.DarkBlue;
-            rtxtText.SelectedText = "<a href='http://taaghche.com'>Taaghche</a>";
-            rtxtText.SelectionColor = rtxtText.ForeColor;
-            rtxtText.Focus();
-        }
-
-        private void pix_Click(object sender, EventArgs e)
-        {
-            var ofd = new OpenFileDialog()
-            {
-                CheckFileExists = true,
-                Filter = Resources.PicBoxFilter,
-                RestoreDirectory = true,
-                Title = Resources.PixBoxTitle
-            };
-
-            if (ofd.ShowDialog(this) == DialogResult.OK)
-            {
-                pix.BackgroundImage = MsgImage = Image.FromFile(ofd.FileName);
-            }
-            else
-            {
-                pix.BackgroundImage = Resources.background;
-                MsgImage = null;
-            }
-        }
-
-        private void btnAddRow_Click(object sender, EventArgs e)
-        {
-            layout.Controls.Add(new InlinePanel(layout.Width - 20));
-        }
-
-        private void btnAlignLeft_Click(object sender, EventArgs e)
-        {
-            rtxtText.RightToLeft = RightToLeft.No;
-        }
-
-        private void btnAlignRight_Click(object sender, EventArgs e)
-        {
-            rtxtText.RightToLeft = RightToLeft.Yes;
         }
     }
 }

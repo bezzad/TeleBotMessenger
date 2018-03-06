@@ -47,9 +47,10 @@
             this.txtBotToken = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.EditPage = new System.Windows.Forms.TabPage();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.lstMessages = new System.Windows.Forms.ListBox();
             this.tbAbout = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lstMessages = new System.Windows.Forms.ListBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pix)).BeginInit();
             this.tabControl.SuspendLayout();
             this.SendPage.SuspendLayout();
@@ -57,6 +58,7 @@
             this.EditPage.SuspendLayout();
             this.tbAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConnect
@@ -228,6 +230,7 @@
             // 
             // rtxtText
             // 
+            this.rtxtText.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtText.Location = new System.Drawing.Point(54, 207);
             this.rtxtText.Margin = new System.Windows.Forms.Padding(2);
             this.rtxtText.Name = "rtxtText";
@@ -311,6 +314,17 @@
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
             // 
+            // lstMessages
+            // 
+            this.lstMessages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstMessages.FormattingEnabled = true;
+            this.lstMessages.ItemHeight = 12;
+            this.lstMessages.Location = new System.Drawing.Point(170, 197);
+            this.lstMessages.Name = "lstMessages";
+            this.lstMessages.Size = new System.Drawing.Size(128, 148);
+            this.lstMessages.TabIndex = 12;
+            // 
             // tbAbout
             // 
             this.tbAbout.Controls.Add(this.pictureBox1);
@@ -332,22 +346,24 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // lstMessages
+            // pictureBox2
             // 
-            this.lstMessages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstMessages.FormattingEnabled = true;
-            this.lstMessages.ItemHeight = 12;
-            this.lstMessages.Location = new System.Drawing.Point(170, 197);
-            this.lstMessages.Name = "lstMessages";
-            this.lstMessages.Size = new System.Drawing.Size(128, 148);
-            this.lstMessages.TabIndex = 12;
+            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImage = global::TeleBotMessenger.Properties.Resources.icon;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox2.Location = new System.Drawing.Point(-2, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(48, 48);
+            this.pictureBox2.TabIndex = 9;
+            this.pictureBox2.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(400, 753);
+            this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.tabSelector);
             this.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -364,6 +380,7 @@
             this.EditPage.ResumeLayout(false);
             this.tbAbout.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -390,6 +407,7 @@
         private System.Windows.Forms.TabPage tbAbout;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox lstMessages;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 
