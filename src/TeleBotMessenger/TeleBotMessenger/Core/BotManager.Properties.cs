@@ -6,10 +6,8 @@ namespace TeleBotMessenger.Core
     // BotManager Properties
     public partial class BotManager
     {
-        private string PreLoggerMsg => "Telegram." + GetType().Name;
         public string BotApiKey { get; set; }
         public TelegramBotClient Bot { get; set; }
-        public BotKeyboardCollection KeyboardCollection { get; set; }
         public User Me { get; set; }
         protected int MaxAnswerDurationMs { get; set; } = 12000; // - 2sec padding
         protected int InlineQueryResultCacheTimeSec { get; set; } = 7200; // 2hour
@@ -25,7 +23,6 @@ namespace TeleBotMessenger.Core
         public BotManager(string apiKey)
         {
             BotApiKey = apiKey;
-            KeyboardCollection = new BotKeyboardCollection();
         }
 
         #endregion

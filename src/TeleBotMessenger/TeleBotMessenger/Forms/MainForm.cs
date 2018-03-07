@@ -30,7 +30,7 @@ namespace TeleBotMessenger.Forms
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue800, Primary.Blue500, Accent.Pink200, TextShade.WHITE);
         }
-        
+
         public IReplyMarkup GetKeyboardButtons()
         {
             var result = new List<InlineKeyboardButton[]>();
@@ -97,8 +97,6 @@ namespace TeleBotMessenger.Forms
             }
         }
 
-        
-
         private void btnAlignLeft_Click(object sender, EventArgs e)
         {
             rtxtText.RightToLeft = RightToLeft.No;
@@ -108,6 +106,11 @@ namespace TeleBotMessenger.Forms
         {
             rtxtText.RightToLeft = RightToLeft.Yes;
             rtxtText.Focus();
+        }
+
+        private void btnEmoji_Click(object sender, EventArgs e)
+        {
+            emojiLayout.Show();
         }
 
         private void btnAddLink_Click(object sender, EventArgs e)
@@ -178,6 +181,26 @@ namespace TeleBotMessenger.Forms
             {
                 Cursor = Cursors.Default;
             }
+        }
+
+        private void picAbout_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void emojiLayout_OnEmojiClick(object sender, EventArgs e)
+        {
+            var emojiHex = ((Button)sender).Name.Trim('_');
+            var emoji = Emoji.EmojiBitmap[emojiHex];
+            Clipboard.SetImage(new Bitmap(emoji, new Size(16, 16)));
+            if (rtxtText.CanPaste(DataFormats.GetFormat(DataFormats.Bitmap)))
+                rtxtText.Paste();
+        }
+
+        protected override async void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            await emojiLayout.Load();
         }
     }
 }
