@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using TeleBotMessenger.Helper;
@@ -184,15 +183,18 @@ namespace TeleBotMessenger.Forms
                         msg = await TelegramHelper.BotManager.Bot.SendPhotoAsync(ChannelName,
                             new FileToSend(Guid.NewGuid().ToString(), stream), rtxtText.Text,
                             replyMarkup: GetKeyboardButtons());
+
+                        lstSentMessages.Items.Add(TelegramMessage.Factory(msg, MsgImage));
                     }
                 }
                 else
                 {
                     msg = await TelegramHelper.BotManager.Bot.SendTextMessageAsync(
                         ChannelName, rtxtText.Text, ParseMode.Html, replyMarkup: GetKeyboardButtons());
+
+                    lstSentMessages.Items.Add(TelegramMessage.Factory(msg));
                 }
 
-                lstMessages.Items.Add(TelegramMessage.Factory(msg));
             }
             catch (Exception ex)
             {
@@ -229,6 +231,40 @@ namespace TeleBotMessenger.Forms
         {
             base.OnLoad(e);
             await emojiLayout.Load();
+        }
+
+        private void chkNightMode_CheckedChanged(object sender, EventArgs e)
+        {
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+
+            if (chkNightMode.Checked) // is night mode
+            {
+                materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            }
+            else
+            {
+                materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            }
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            var selectedRow = lstSentMessages.SelectedItem as TelegramMessage;
+
+            if (selectedRow?.Message?.Text != null)
+            {
+                rtxtText.Text = selectedRow.Message.Text;
+                pix.BackgroundImage = Resources.background;
+                MsgImage = null;
+            }
+            else if (selectedRow?.Message?.Caption != null) // photo mode
+            {
+                rtxtText.Text = selectedRow.Message.Caption;
+                pix.BackgroundImage = MsgImage = selectedRow.Photo;
+            }
+
+            txtChannelName.Text = selectedRow?.Message?.Chat?.Username;
         }
     }
 }

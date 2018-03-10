@@ -60,11 +60,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\InlineEditFrom.cs">
+    <Compile Include="Forms\InlineUrlEditFrom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\InlineEditFrom.Designer.cs">
-      <DependentUpon>InlineEditFrom.cs</DependentUpon>
+    <Compile Include="Forms\InlineUrlEditFrom.Designer.cs">
+      <DependentUpon>InlineUrlEditFrom.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\Emoji.cs" />
     <Compile Include="Model\EmojiLayout.cs">
@@ -93,8 +93,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\InlineEditFrom.resx">
-      <DependentUpon>InlineEditFrom.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\InlineUrlEditFrom.resx">
+      <DependentUpon>InlineUrlEditFrom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -2823,6 +2823,8 @@
     <None Include="Resources\3030.png" />
     <None Include="Resources\3297.png" />
     <None Include="Resources\3299.png" />
+    <None Include="Resources\moon32.png" />
+    <None Include="Resources\moon.png" />
     <Content Include="VersionUpdater.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>VersionUpdater.txt</LastGenOutput>

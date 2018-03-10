@@ -27,7 +27,7 @@ namespace TeleBotMessenger.Model
         {
             if (sender is InlineUrlButton btn)
             {
-                var form = InlineEditFrom.GetInstance(btn);
+                var form = InlineUrlEditFrom.GetInstance(btn);
                 form.ShowDialog(this);
             }
         }

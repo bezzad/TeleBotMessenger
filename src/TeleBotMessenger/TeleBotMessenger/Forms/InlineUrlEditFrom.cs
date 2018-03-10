@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Windows.Forms;
+using MaterialSkin.Controls;
 using TeleBotMessenger.Model;
 
 namespace TeleBotMessenger.Forms
 {
-    public partial class InlineEditFrom : Form
+    public partial class InlineUrlEditFrom : MaterialForm
     {
         public InlineUrlButton Value { get; set; }
 
 
-        private InlineEditFrom()
+        private InlineUrlEditFrom()
         {
             InitializeComponent();
         }
 
-        public static InlineEditFrom GetInstance(InlineUrlButton value)
+        public static InlineUrlEditFrom GetInstance(InlineUrlButton value)
         {
-            var instance = new InlineEditFrom { Value = value };
+            var instance = new InlineUrlEditFrom { Value = value };
 
             if (value.Text != @"Button" && value.Address != null)
             {
-                instance.txtValue.Value = value.Text;
-                instance.txtAddress.Value = value.Address.ToString();
+                instance.txtText.Text = value.Text;
+                instance.txtUrl.Text = value.Address.ToString();
             }
 
             return instance;
@@ -36,14 +37,14 @@ namespace TeleBotMessenger.Forms
         {
             try
             {
-                Value.Text = txtValue.Value;
-                Value.Address = new Uri(txtAddress.Value);
+                Value.Text = txtText.Text;
+                Value.Address = new Uri(txtUrl.Text);
+                Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, @"Change In-line Button Address", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            Close();
         }
     }
 }
