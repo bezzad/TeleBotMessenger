@@ -152,6 +152,7 @@
             // emojiLayout
             // 
             this.emojiLayout.AutoScroll = true;
+            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
             this.emojiLayout.Location = new System.Drawing.Point(54, 11);
             this.emojiLayout.Name = "emojiLayout";
             this.emojiLayout.Size = new System.Drawing.Size(305, 190);
@@ -252,10 +253,15 @@
             // 
             // rtxtText
             // 
+            this.rtxtText.AutoWordSelection = true;
+            this.rtxtText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtxtText.EnableAutoDragDrop = true;
             this.rtxtText.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtxtText.Location = new System.Drawing.Point(54, 208);
             this.rtxtText.Margin = new System.Windows.Forms.Padding(2);
             this.rtxtText.Name = "rtxtText";
+            this.rtxtText.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.rtxtText.ShowSelectionMargin = true;
             this.rtxtText.Size = new System.Drawing.Size(305, 146);
             this.rtxtText.TabIndex = 28;
             this.rtxtText.Text = "";

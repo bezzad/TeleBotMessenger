@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using MaterialSkin;
 using MaterialSkin.Controls;
 using TeleBotMessenger.Helper;
@@ -20,6 +21,8 @@ namespace TeleBotMessenger.Forms
         private User BotUser { get; set; }
         private string ChannelName => txtChannelName.Text.StartsWith("@") ? txtChannelName.Text : @"@" + txtChannelName.Text;
         private Image MsgImage { get; set; }
+        private Font EmojiFont { get; } = new Font(@"Segoe UI Symbol", 11f, FontStyle.Bold);
+        private Font RichTextBoxFont { get; } = new Font(@"Time News Roman", 11f, FontStyle.Regular);
 
         public MainForm()
         {
@@ -29,6 +32,8 @@ namespace TeleBotMessenger.Forms
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue800, Primary.Blue500, Accent.Pink200, TextShade.WHITE);
+
+            rtxtText.Font = RichTextBoxFont;
         }
 
         public IReplyMarkup GetKeyboardButtons()
@@ -99,18 +104,33 @@ namespace TeleBotMessenger.Forms
 
         private void btnAlignLeft_Click(object sender, EventArgs e)
         {
-            rtxtText.RightToLeft = RightToLeft.No;
+            // don't use below code to RTL because change styles
+            //rtxtText.RightToLeft = RightToLeft.No;
+
+            int indexOfQr = rtxtText.Rtf.IndexOf(@"\qr", StringComparison.Ordinal);
+            if (indexOfQr != -1)
+                rtxtText.Rtf = rtxtText.Rtf.Remove(indexOfQr, @"\qr".Length);
+
             rtxtText.Focus();
         }
         private void btnAlignRight_Click(object sender, EventArgs e)
         {
-            rtxtText.RightToLeft = RightToLeft.Yes;
+            // don't use below code to RTL because change styles
+            //rtxtText.RightToLeft = RightToLeft.Yes;
+
+            var indexofltrparObject = rtxtText.Rtf.IndexOf(@"\rtlpar", StringComparison.Ordinal);
+            if (indexofltrparObject != -1 && rtxtText.Rtf.IndexOf(@"\rtlpar\qr", StringComparison.Ordinal) <= 0)
+                rtxtText.Rtf = rtxtText.Rtf.Insert(indexofltrparObject, @"\qr");
+
             rtxtText.Focus();
         }
 
         private void btnEmoji_Click(object sender, EventArgs e)
         {
-            emojiLayout.Show();
+            if (emojiLayout.Visible)
+                emojiLayout.Hide();
+            else
+                emojiLayout.Show();
         }
 
         private void btnAddLink_Click(object sender, EventArgs e)
@@ -121,6 +141,7 @@ namespace TeleBotMessenger.Forms
                 selectedText = @"link_name";
             rtxtText.SelectedText = $"<a href='https://taaghche.ir/'>{selectedText}</a>";
             rtxtText.SelectionColor = rtxtText.ForeColor;
+
             rtxtText.Focus();
         }
 
@@ -191,10 +212,17 @@ namespace TeleBotMessenger.Forms
         private void emojiLayout_OnEmojiClick(object sender, EventArgs e)
         {
             var emojiHex = ((Button)sender).Name.Trim('_');
-            var emoji = Emoji.EmojiBitmap[emojiHex];
-            Clipboard.SetImage(new Bitmap(emoji, new Size(16, 16)));
-            if (rtxtText.CanPaste(DataFormats.GetFormat(DataFormats.Bitmap)))
-                rtxtText.Paste();
+            var ch = char.ConvertFromUtf32(Convert.ToInt32(emojiHex, 16));
+            var start = rtxtText.SelectionStart;
+            rtxtText.SelectedText = ch;
+            rtxtText.Select(start, rtxtText.SelectionStart - start);
+            rtxtText.SelectionFont = EmojiFont;
+            rtxtText.SelectionColor = Color.FromArgb(24, 150, 147);
+            rtxtText.Select(rtxtText.SelectionStart + rtxtText.SelectionLength, 0);
+            rtxtText.SelectionFont = RichTextBoxFont;
+            rtxtText.SelectionColor = DefaultForeColor;
+            rtxtText.SelectedText = " ";
+            rtxtText.Focus();
         }
 
         protected override async void OnLoad(EventArgs e)
