@@ -48,7 +48,7 @@
             this.btnOk.Name = "btnOk";
             this.btnOk.Primary = true;
             this.btnOk.Size = new System.Drawing.Size(70, 30);
-            this.btnOk.TabIndex = 5;
+            this.btnOk.TabIndex = 3;
             this.btnOk.Text = "Ok";
             this.btnOk.UseVisualStyleBackColor = false;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -63,7 +63,7 @@
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Primary = true;
             this.btnCancel.Size = new System.Drawing.Size(70, 30);
-            this.btnCancel.TabIndex = 6;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -83,7 +83,7 @@
             this.txtText.SelectionLength = 0;
             this.txtText.SelectionStart = 0;
             this.txtText.Size = new System.Drawing.Size(262, 23);
-            this.txtText.TabIndex = 7;
+            this.txtText.TabIndex = 1;
             this.txtText.UseSystemPasswordChar = false;
             // 
             // txtUrl
@@ -101,7 +101,7 @@
             this.txtUrl.SelectionLength = 0;
             this.txtUrl.SelectionStart = 0;
             this.txtUrl.Size = new System.Drawing.Size(262, 23);
-            this.txtUrl.TabIndex = 8;
+            this.txtUrl.TabIndex = 2;
             this.txtUrl.UseSystemPasswordChar = false;
             // 
             // tabControl

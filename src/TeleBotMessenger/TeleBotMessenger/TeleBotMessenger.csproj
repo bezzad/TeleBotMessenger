@@ -77,8 +77,9 @@
     <Compile Include="Model\InlinePanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Model\TelegramInlineUrlButton.cs" />
     <Compile Include="Model\TelegramMessage.cs" />
-    <Compile Include="Helper\AssemblyInfoHelper.cs" />
+    <Compile Include="Helper\AssemblyInfo.cs" />
     <Compile Include="Core\BotManager.CallbackMissions.cs" />
     <Compile Include="Core\BotManager.cs" />
     <Compile Include="Core\BotManager.Helper.cs" />
@@ -2824,11 +2825,10 @@
     <None Include="Resources\3030.png" />
     <None Include="Resources\3297.png" />
     <None Include="Resources\3299.png" />
-    <None Include="Resources\moon32.png" />
-    <None Include="Resources\moon.png" />
     <None Include="Resources\dark_hover_moon.png" />
     <None Include="Resources\dark_moon.png" />
     <None Include="Resources\light_moon.png" />
+    <None Include="Resources\clear.png" />
     <Content Include="VersionUpdater.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>VersionUpdater.txt</LastGenOutput>

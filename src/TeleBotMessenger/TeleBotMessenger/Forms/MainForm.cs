@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin;
@@ -9,9 +10,9 @@ using MaterialSkin.Controls;
 using TeleBotMessenger.Helper;
 using TeleBotMessenger.Model;
 using TeleBotMessenger.Properties;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.InlineKeyboardButtons;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TeleBotMessenger.Forms
@@ -19,9 +20,6 @@ namespace TeleBotMessenger.Forms
     public sealed partial class MainForm : MaterialForm
     {
         private Image _msgImage;
-
-        private User BotUser { get; set; }
-        private string ChannelName => txtChannelName.Text.StartsWith("@") ? txtChannelName.Text : @"@" + txtChannelName.Text;
         private Image MsgImage
         {
             get => _msgImage;
@@ -32,9 +30,14 @@ namespace TeleBotMessenger.Forms
                 UpdateTextLength();
             }
         }
+
+        private User BotUser { get; set; }
+        private string ChannelName => txtChannelName.Text.StartsWith("@") ? txtChannelName.Text : @"@" + txtChannelName.Text;
         private Font EmojiFont { get; } = new Font(@"Segoe UI Symbol", 11f, FontStyle.Bold);
         private Font RichTextBoxFont { get; } = new Font(@"Time News Roman", 11f, FontStyle.Regular);
         private MaterialSkinManager MaterialSkinManager { get; } = MaterialSkinManager.Instance;
+        private string StoragePath { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AssemblyInfo.Product, @"sent_messages.json");
+        private TelegramMessage EditedMessage { get; set; }
 
         public MainForm()
         {
@@ -42,7 +45,8 @@ namespace TeleBotMessenger.Forms
             Text += @" " + AssemblyInfo.Version.ToString(3);
             MaterialSkinManager.AddFormToManage(this);
             MaterialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            MaterialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue800, Primary.Blue500, Accent.Pink200, TextShade.WHITE);
+            MaterialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue800, Primary.Blue500,
+                Accent.Pink200, TextShade.WHITE);
 
             rtxtText.Font = RichTextBoxFont;
             lstSentMessages.BackColor = lstSentMessages.Parent.BackColor;
@@ -77,26 +81,62 @@ namespace TeleBotMessenger.Forms
             };
 
             rtxtText.KeyUp += (s, e) => UpdateTextLength();
+            btnAddRow.Click += (s, e) => AddRow();
         }
 
-        public IReplyMarkup GetKeyboardButtons()
+        private List<TelegramInlineUrlButton[]> GetKeyboardButtons()
         {
-            var result = new List<InlineKeyboardButton[]>();
+            var result = new List<TelegramInlineUrlButton[]>();
             foreach (InlinePanel panel in layout.Controls)
             {
-                var keys = new List<InlineKeyboardButton>();
+                var keys = new List<TelegramInlineUrlButton>();
                 foreach (var button in panel.Buttons)
                 {
                     if (button.Address == null)
                         throw new Exception($"The {button.Text} address is empty!");
 
-                    keys.Add(new InlineKeyboardUrlButton(button.Text, button.Address));
+                    keys.Add(new TelegramInlineUrlButton(button.Text, button.Address));
                 }
 
                 result.Add(keys.ToArray());
             }
 
-            return new InlineKeyboardMarkup(result.ToArray());
+            return result;
+        }
+        private void SetKeyboardButtons(IEnumerable<TelegramInlineUrlButton[]> keyboard)
+        {
+            layout.Controls.Clear();
+
+            foreach (var row in keyboard)
+            {
+                var rowPanel = AddRow();
+                rowPanel.Buttons.Clear();
+                foreach (var btn in row)
+                {
+                    rowPanel.Add(new InlineButton
+                    {
+                        Text = btn.Text,
+                        Address = new Uri(btn.Url)
+                    });
+                }
+            }
+        }
+        private InlinePanel AddRow()
+        {
+            var panel = new InlinePanel(layout.Width - 20);
+            layout.Controls.Add(panel);
+            return panel;
+        }
+
+        private void UpdateTextLength()
+        {
+            var maxLen = 4096;
+            if (EditedMessage?.Message?.Caption != null || MsgImage != null) // Photo Message
+                maxLen = 200;
+
+            var remain = maxLen - rtxtText.Text.Length;
+            lblRemainChar.Text = remain.ToString();
+            lblRemainChar.ForeColor = remain < 0 ? Color.Red : Color.Black;
         }
 
         private async void btnConnect_Click(object sender, EventArgs e)
@@ -156,6 +196,7 @@ namespace TeleBotMessenger.Forms
 
             rtxtText.Focus();
         }
+
         private void btnAlignRight_Click(object sender, EventArgs e)
         {
             // don't use below code to RTL because change styles
@@ -209,47 +250,6 @@ namespace TeleBotMessenger.Forms
             }
         }
 
-        private void btnAddRow_Click(object sender, EventArgs e)
-        {
-            layout.Controls.Add(new InlinePanel(layout.Width - 20));
-        }
-
-        private async void btnSend_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-                Telegram.Bot.Types.Message msg;
-                if (MsgImage != null)
-                {
-                    using (var stream = new MemoryStream(MsgImage.ToByte()))
-                    {
-                        msg = await TelegramHelper.BotManager.Bot.SendPhotoAsync(ChannelName,
-                            new FileToSend(Guid.NewGuid().ToString(), stream), rtxtText.Text,
-                            replyMarkup: GetKeyboardButtons());
-
-                        lstSentMessages.Items.Add(TelegramMessage.Factory(msg, MsgImage));
-                    }
-                }
-                else
-                {
-                    msg = await TelegramHelper.BotManager.Bot.SendTextMessageAsync(
-                        ChannelName, rtxtText.Text, ParseMode.Html, replyMarkup: GetKeyboardButtons());
-
-                    lstSentMessages.Items.Add(TelegramMessage.Factory(msg));
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, @"Telegram Send Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                Cursor = Cursors.Default;
-            }
-        }
-
         private async void picAbout_Click(object sender, EventArgs e)
         {
             await Task.Run(async () =>
@@ -298,39 +298,141 @@ namespace TeleBotMessenger.Forms
         protected override async void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            var lstMessages = await StringHelper.ReadAsync(StoragePath);
+            lstSentMessages.Items.AddRange(lstMessages.ToArray());
             await emojiLayout.Load();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            btnSend.Text = @"Send";
+            rtxtText.Text = "";
+            MsgImage = null;
+            pix.BackgroundImage = Resources.background;
+            EditedMessage = null;
+            pix.Enabled = true;
+            layout.Controls.Clear();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            var selectedRow = lstSentMessages.SelectedItem as TelegramMessage;
-
-            if (selectedRow?.Message?.Text != null)
+            if (lstSentMessages.SelectedItem is TelegramMessage selectedRow)
             {
-                rtxtText.Text = selectedRow.Message.Text;
-                pix.BackgroundImage = Resources.background;
-                MsgImage = null;
-            }
-            else if (selectedRow?.Message?.Caption != null) // photo mode
-            {
-                rtxtText.Text = selectedRow.Message.Caption;
-                pix.BackgroundImage = MsgImage = selectedRow.Photo;
-            }
+                rtxtText.Rtf = selectedRow.Rtf;
+                SetKeyboardButtons(selectedRow.Keyboard);
 
-            txtChannelName.Text = selectedRow?.Message?.Chat?.Username;
+                if (selectedRow.Photo == null)
+                {
+                    pix.BackgroundImage = Resources.background;
+                    MsgImage = null;
+                }
+                else // photo mode
+                {
+                    pix.BackgroundImage = MsgImage = selectedRow.Photo;
+                }
 
-            SendPage.Show();
+                txtChannelName.Text = selectedRow.Message?.Chat?.Username;
+                btnSend.Text = @"Update";
+                pix.Enabled = false;
+                EditedMessage = selectedRow;
+                UpdateTextLength();
+                SendPage.Show();
+            }
         }
 
-        private void UpdateTextLength()
+        private async void btnSend_Click(object sender, EventArgs e)
         {
-            var maxLen = 4096;
-            if (MsgImage != null) // Photo Message
-                maxLen = 200;
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                var message = EditedMessage ?? new TelegramMessage();
+                message.Rtf = rtxtText.Rtf;
+                message.Keyboard = GetKeyboardButtons();
 
-            var remain = maxLen - rtxtText.Text.Length;
-            lblRemainChar.Text = remain.ToString();
-            lblRemainChar.ForeColor = remain < 0 ? Color.Red : Color.Black;
+                if (message.Message?.Caption != null || MsgImage != null) // Photo Message
+                {
+                    message.Photo = MsgImage;
+                    using (var stream = new MemoryStream(message.Photo.ToByte()))
+                    {
+                        if (EditedMessage != null) // Edit
+                        {
+                            message.Message = await TelegramHelper.BotManager.Bot.EditMessageCaptionAsync(ChannelName,
+                                EditedMessage.Message.MessageId, rtxtText.Text,
+                                new InlineKeyboardMarkup(message.Keyboard.ToArray()));
+                        }
+                        else //  New
+                        {
+                            message.Message = await TelegramHelper.BotManager.Bot.SendPhotoAsync(ChannelName,
+                                new FileToSend(Guid.NewGuid().ToString(), stream), rtxtText.Text,
+                                replyMarkup: new InlineKeyboardMarkup(message.Keyboard.ToArray()));
+
+                            lstSentMessages.Items.Add(message);
+                        }
+                    }
+                }
+                else // Text Message
+                {
+                    if (EditedMessage != null) // Edit
+                    {
+                        message.Message = await TelegramHelper.BotManager.Bot.EditMessageTextAsync(
+                            ChannelName, message.Message.MessageId, rtxtText.Text, ParseMode.Html,
+                            replyMarkup: new InlineKeyboardMarkup(message.Keyboard.ToArray()));
+                    }
+                    else // New 
+                    {
+                        message.Message = await TelegramHelper.BotManager.Bot.SendTextMessageAsync(
+                            ChannelName, rtxtText.Text, ParseMode.Html,
+                            replyMarkup: new InlineKeyboardMarkup(message.Keyboard.ToArray()));
+
+                        lstSentMessages.Items.Add(message);
+                    }
+                }
+
+                await StringHelper.StoreAsync(StoragePath, lstSentMessages.Items.Cast<TelegramMessage>().ToList());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Telegram Send Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+
+                if (lstSentMessages.SelectedItem is TelegramMessage selectedRow)
+                {
+                    await TelegramHelper.BotManager.Bot.DeleteMessageAsync(
+                        selectedRow.Message.Chat.Id,
+                        selectedRow.Message.MessageId);
+
+                    lstSentMessages.Items.Remove(selectedRow);
+                }
+            }
+            catch (ApiRequestException ax)
+            {
+                MessageBox.Show(ax.Message, @"Telegram Delete Message Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                if (lstSentMessages.SelectedItem is TelegramMessage selectedRow)
+                {
+                    lstSentMessages.Items.Remove(selectedRow);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, @"Telegram Delete Message Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                await StringHelper.StoreAsync(StoragePath, lstSentMessages.Items.Cast<TelegramMessage>().ToList());
+                Cursor = Cursors.Default;
+            }
         }
     }
 }

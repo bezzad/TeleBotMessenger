@@ -8,7 +8,7 @@ namespace TeleBotMessenger.Forms
 {
     public partial class InlineUrlEditFrom : MaterialForm
     {
-        public InlineUrlButton Value { get; set; }
+        public InlineButton Value { get; set; }
 
 
         private InlineUrlEditFrom()
@@ -19,7 +19,7 @@ namespace TeleBotMessenger.Forms
             msm.AddFormToManage(this);
         }
 
-        public static InlineUrlEditFrom GetInstance(InlineUrlButton value)
+        public static InlineUrlEditFrom GetInstance(InlineButton value)
         {
             var instance = new InlineUrlEditFrom { Value = value };
 
