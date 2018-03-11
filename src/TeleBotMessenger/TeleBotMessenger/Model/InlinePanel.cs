@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,7 +11,7 @@ namespace TeleBotMessenger.Model
         private readonly Button _addButton;
         private readonly Button _delButton;
         private const int ButtonSpaces = 5;
-        public List<InlineUrlButton> Buttons { get; set; } = new List<InlineUrlButton>();
+        public List<InlineButton> Buttons { get; set; } = new List<InlineButton>();
 
         public InlinePanel(int width)
         {
@@ -29,7 +28,7 @@ namespace TeleBotMessenger.Model
                 Location = new Point(0, 9),
                 Size = new Size(20, 20)
             };
-            _addButton.Click += OnAdd;
+            _addButton.Click += (s, e) => Add();
             // 
             // btnAddColumn
             // 
@@ -42,14 +41,14 @@ namespace TeleBotMessenger.Model
                 Location = new Point(24, 9),
                 Size = new Size(20, 20)
             };
-            _delButton.Click += OnDel;
+            _delButton.Click += (s, e) => Del();
             //
             // Add first button
             //
             _addButton.PerformClick();
         }
 
-        private void OnDel(object sender, EventArgs e)
+        public void Del()
         {
             var lastBtn = Buttons.LastOrDefault();
             if (Buttons.Count > 1)
@@ -65,9 +64,14 @@ namespace TeleBotMessenger.Model
             }
         }
 
-        private void OnAdd(object sender, EventArgs e)
+        public void Add()
         {
-            Buttons.Add(new InlineUrlButton());
+           Add(new InlineButton());
+        }
+
+        public void Add(InlineButton btn)
+        {
+            Buttons.Add(btn);
             OrderColumns();
         }
 

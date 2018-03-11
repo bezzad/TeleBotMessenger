@@ -35,8 +35,8 @@
             this.tabControl = new MaterialSkin.Controls.MaterialTabControl();
             this.SendPage = new System.Windows.Forms.TabPage();
             this.pnlTools = new System.Windows.Forms.Panel();
+            this.btnClear = new System.Windows.Forms.Button();
             this.lblRemainChar = new System.Windows.Forms.Label();
-            this.emojiLayout = new TeleBotMessenger.Model.EmojiLayout();
             this.btnEmoji = new System.Windows.Forms.Button();
             this.btnSend = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnAlignRight = new System.Windows.Forms.Button();
@@ -54,6 +54,8 @@
             this.picAbout = new System.Windows.Forms.PictureBox();
             this.picNightMode = new System.Windows.Forms.PictureBox();
             this.progress = new System.Windows.Forms.ProgressBar();
+            this.btnDelete = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.emojiLayout = new TeleBotMessenger.Model.EmojiLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pix)).BeginInit();
             this.tabControl.SuspendLayout();
             this.SendPage.SuspendLayout();
@@ -137,6 +139,7 @@
             this.pnlTools.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlTools.Controls.Add(this.btnClear);
             this.pnlTools.Controls.Add(this.lblRemainChar);
             this.pnlTools.Controls.Add(this.emojiLayout);
             this.pnlTools.Controls.Add(this.btnEmoji);
@@ -151,8 +154,22 @@
             this.pnlTools.Enabled = false;
             this.pnlTools.Location = new System.Drawing.Point(3, 90);
             this.pnlTools.Name = "pnlTools";
-            this.pnlTools.Size = new System.Drawing.Size(384, 530);
+            this.pnlTools.Size = new System.Drawing.Size(384, 538);
             this.pnlTools.TabIndex = 28;
+            // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClear.BackgroundImage = global::TeleBotMessenger.Properties.Resources.clear;
+            this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClear.Location = new System.Drawing.Point(4, 494);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(30, 30);
+            this.btnClear.TabIndex = 39;
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // lblRemainChar
             // 
@@ -165,17 +182,6 @@
             this.lblRemainChar.TabIndex = 38;
             this.lblRemainChar.Text = "4096";
             this.lblRemainChar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // emojiLayout
-            // 
-            this.emojiLayout.AutoScroll = true;
-            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
-            this.emojiLayout.Location = new System.Drawing.Point(54, 11);
-            this.emojiLayout.Name = "emojiLayout";
-            this.emojiLayout.Size = new System.Drawing.Size(305, 190);
-            this.emojiLayout.TabIndex = 37;
-            this.emojiLayout.Visible = false;
-            this.emojiLayout.OnEmojiClick += new System.EventHandler(this.emojiLayout_OnEmojiClick);
             // 
             // btnEmoji
             // 
@@ -196,11 +202,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSend.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSend.Depth = 0;
-            this.btnSend.Location = new System.Drawing.Point(5, 494);
+            this.btnSend.Location = new System.Drawing.Point(40, 494);
             this.btnSend.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSend.Name = "btnSend";
             this.btnSend.Primary = true;
-            this.btnSend.Size = new System.Drawing.Size(374, 29);
+            this.btnSend.Size = new System.Drawing.Size(339, 30);
             this.btnSend.TabIndex = 35;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -239,7 +245,7 @@
             this.layout.AutoScroll = true;
             this.layout.Location = new System.Drawing.Point(3, 359);
             this.layout.Name = "layout";
-            this.layout.Size = new System.Drawing.Size(380, 130);
+            this.layout.Size = new System.Drawing.Size(380, 134);
             this.layout.TabIndex = 32;
             // 
             // btnAddRow
@@ -253,7 +259,6 @@
             this.btnAddRow.Size = new System.Drawing.Size(30, 30);
             this.btnAddRow.TabIndex = 31;
             this.btnAddRow.UseVisualStyleBackColor = true;
-            this.btnAddRow.Click += new System.EventHandler(this.btnAddRow_Click);
             // 
             // btnAddLink
             // 
@@ -336,6 +341,7 @@
             // 
             // EditPage
             // 
+            this.EditPage.Controls.Add(this.btnDelete);
             this.EditPage.Controls.Add(this.btnEdit);
             this.EditPage.Controls.Add(this.lstSentMessages);
             this.EditPage.Location = new System.Drawing.Point(4, 21);
@@ -348,15 +354,14 @@
             // 
             // btnEdit
             // 
-            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEdit.Depth = 0;
-            this.btnEdit.Location = new System.Drawing.Point(7, 579);
+            this.btnEdit.Location = new System.Drawing.Point(197, 579);
             this.btnEdit.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Primary = true;
-            this.btnEdit.Size = new System.Drawing.Size(374, 29);
+            this.btnEdit.Size = new System.Drawing.Size(184, 29);
             this.btnEdit.TabIndex = 36;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
@@ -415,6 +420,32 @@
             this.progress.TabIndex = 12;
             this.progress.Visible = false;
             // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDelete.Depth = 0;
+            this.btnDelete.Location = new System.Drawing.Point(7, 579);
+            this.btnDelete.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Primary = true;
+            this.btnDelete.Size = new System.Drawing.Size(184, 29);
+            this.btnDelete.TabIndex = 37;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // emojiLayout
+            // 
+            this.emojiLayout.AutoScroll = true;
+            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
+            this.emojiLayout.Location = new System.Drawing.Point(54, 11);
+            this.emojiLayout.Name = "emojiLayout";
+            this.emojiLayout.Size = new System.Drawing.Size(305, 190);
+            this.emojiLayout.TabIndex = 37;
+            this.emojiLayout.Visible = false;
+            this.emojiLayout.OnEmojiClick += new System.EventHandler(this.emojiLayout_OnEmojiClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -470,6 +501,8 @@
         private System.Windows.Forms.PictureBox picNightMode;
         private System.Windows.Forms.ProgressBar progress;
         private System.Windows.Forms.Label lblRemainChar;
+        private System.Windows.Forms.Button btnClear;
+        private MaterialSkin.Controls.MaterialRaisedButton btnDelete;
     }
 }
 

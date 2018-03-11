@@ -6,11 +6,11 @@ using TeleBotMessenger.Properties;
 
 namespace TeleBotMessenger.Model
 {
-    public sealed class InlineUrlButton : Button
+    public sealed class InlineButton : Button
     {
         public Uri Address { get; set; }
 
-        public InlineUrlButton()
+        public InlineButton()
         {
             Cursor = Cursors.Hand;
             Text = @"Button";
@@ -25,7 +25,7 @@ namespace TeleBotMessenger.Model
 
         private void OnEdit(object sender, EventArgs e)
         {
-            if (sender is InlineUrlButton btn)
+            if (sender is InlineButton btn)
             {
                 var form = InlineUrlEditFrom.GetInstance(btn);
                 form.ShowDialog(this);

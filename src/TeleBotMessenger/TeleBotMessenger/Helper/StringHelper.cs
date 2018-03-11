@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using TeleBotMessenger.Model;
 
 namespace TeleBotMessenger.Helper
 {
@@ -25,7 +29,7 @@ namespace TeleBotMessenger.Helper
                 {'8', '۸'},
                 {'9', '۹'}
             };
-        
+
 
         public static char[] EnglishLetters { get; } = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSWXYZ".ToCharArray()
             ;
@@ -133,12 +137,12 @@ namespace TeleBotMessenger.Helper
 
                 return Convert.ToBase64String(resultArray).Replace("/", "_").Replace("+", "-").Replace("=", "");
             }
-            catch (SecurityException se)
+            catch (SecurityException)
             {
                 //Logger.Error(se);
                 Debugger.Break();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Logger.Error(ex);
                 Debugger.Break();
@@ -195,12 +199,12 @@ namespace TeleBotMessenger.Helper
                 tdes.Clear();
                 return Encoding.UTF8.GetString(resultArray);
             }
-            catch (SecurityException se)
+            catch (SecurityException)
             {
                 //Logger.Error(se);
                 Debugger.Break();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Logger.Error(ex);
                 Debugger.Break();
@@ -223,6 +227,44 @@ namespace TeleBotMessenger.Helper
         public static string ToPersianNumber(this int source)
         {
             return source.ToString().Aggregate("", (current, no) => current + PersianNumDictionary[no]);
+        }
+
+        public static async Task StoreAsync(string path, List<TelegramMessage> msgList)
+        {
+            var json = JsonConvert.SerializeObject(msgList, Formatting.None);
+            var encodedText = Encoding.Unicode.GetBytes(json);
+
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+
+            using (var sourceStream = new FileStream(path,
+                FileMode.Create, FileAccess.ReadWrite, FileShare.Read,
+                bufferSize: 4096, useAsync: true))
+            {
+                await sourceStream.WriteAsync(encodedText, 0, encodedText.Length);
+            }
+        }
+
+        public static async Task<List<TelegramMessage>> ReadAsync(string filePath)
+        {
+            if(!File.Exists(filePath)) return new List<TelegramMessage>();
+            using (var sourceStream = new FileStream(filePath,
+                FileMode.Open, FileAccess.Read, FileShare.Read,
+                bufferSize: 4096, useAsync: true))
+            {
+                var sb = new StringBuilder();
+
+                var buffer = new byte[0x1000];
+                int numRead;
+                while ((numRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
+                {
+                    var text = Encoding.Unicode.GetString(buffer, 0, numRead);
+                    sb.Append(text);
+                }
+
+                var json = sb.ToString();
+                var result = JsonConvert.DeserializeObject<List<TelegramMessage>>(json);
+                return result;
+            }
         }
     }
 }
