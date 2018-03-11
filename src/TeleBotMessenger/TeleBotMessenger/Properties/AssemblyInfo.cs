@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Hasin.Taaghche")]
 [assembly: AssemblyProduct("TeleBotMessenger")]
 [assembly: AssemblyCopyright("Copyright ©  2018 Taaghche")]
-[assembly: AssemblyTrademark("TeleBotMessenger")]
+[assembly: AssemblyTrademark("B.B")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.67")]
-[assembly: AssemblyFileVersion("1.0.67")]
+[assembly: AssemblyVersion("1.2.10")]
+[assembly: AssemblyFileVersion("1.2.10")]

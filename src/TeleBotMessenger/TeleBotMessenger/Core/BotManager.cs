@@ -23,7 +23,7 @@ namespace TeleBotMessenger.Core
             return Me;
         }
 
-        private async void BotOnInlineQueryReceived(object sender, InlineQueryEventArgs e)
+        private void BotOnInlineQueryReceived(object sender, InlineQueryEventArgs e)
         {
 //            try
 //            {
@@ -93,7 +93,7 @@ namespace TeleBotMessenger.Core
 //            }
         }
 
-        private async void BotOnCallbackQueryReceived(object sender, CallbackQueryEventArgs e)
+        private void BotOnCallbackQueryReceived(object sender, CallbackQueryEventArgs e)
         {
 //            try
 //            {
@@ -146,7 +146,7 @@ namespace TeleBotMessenger.Core
 //            }
         }
 
-        private async void BotOnMessageReceived(object sender, MessageEventArgs e)
+        private void BotOnMessageReceived(object sender, MessageEventArgs e)
         {
 //            try
 //            {
@@ -239,7 +239,7 @@ namespace TeleBotMessenger.Core
 
         private void BotOnReceiveError(object sender, ReceiveErrorEventArgs e)
         {
-            MessageBox.Show(e.ApiRequestException.Message, "Telegram Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(e.ApiRequestException.Message, @"Telegram Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

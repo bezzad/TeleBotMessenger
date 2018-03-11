@@ -35,6 +35,7 @@
             this.tabControl = new MaterialSkin.Controls.MaterialTabControl();
             this.SendPage = new System.Windows.Forms.TabPage();
             this.pnlTools = new System.Windows.Forms.Panel();
+            this.btnEmoji = new System.Windows.Forms.Button();
             this.btnSend = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnAlignRight = new System.Windows.Forms.Button();
             this.btnAlignLeft = new System.Windows.Forms.Button();
@@ -46,19 +47,19 @@
             this.txtChannelName = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.txtBotToken = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.EditPage = new System.Windows.Forms.TabPage();
-            this.btnEdit = new System.Windows.Forms.Button();
-            this.lstMessages = new System.Windows.Forms.ListBox();
-            this.tbAbout = new System.Windows.Forms.TabPage();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.btnEdit = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.lstSentMessages = new System.Windows.Forms.ListBox();
+            this.picAbout = new System.Windows.Forms.PictureBox();
+            this.picNightMode = new System.Windows.Forms.PictureBox();
+            this.emojiLayout = new TeleBotMessenger.Model.EmojiLayout();
+            this.progress = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pix)).BeginInit();
             this.tabControl.SuspendLayout();
             this.SendPage.SuspendLayout();
             this.pnlTools.SuspendLayout();
             this.EditPage.SuspendLayout();
-            this.tbAbout.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picAbout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picNightMode)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConnect
@@ -66,7 +67,7 @@
             this.btnConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnConnect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConnect.Depth = 0;
-            this.btnConnect.Location = new System.Drawing.Point(293, 14);
+            this.btnConnect.Location = new System.Drawing.Point(291, 14);
             this.btnConnect.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Primary = true;
@@ -107,13 +108,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.SendPage);
             this.tabControl.Controls.Add(this.EditPage);
-            this.tabControl.Controls.Add(this.tbAbout);
             this.tabControl.Depth = 0;
-            this.tabControl.Location = new System.Drawing.Point(0, 110);
+            this.tabControl.Location = new System.Drawing.Point(1, 110);
             this.tabControl.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(400, 644);
+            this.tabControl.Size = new System.Drawing.Size(398, 639);
             this.tabControl.TabIndex = 8;
             // 
             // SendPage
@@ -127,7 +127,7 @@
             this.SendPage.Location = new System.Drawing.Point(4, 21);
             this.SendPage.Name = "SendPage";
             this.SendPage.Padding = new System.Windows.Forms.Padding(3);
-            this.SendPage.Size = new System.Drawing.Size(392, 619);
+            this.SendPage.Size = new System.Drawing.Size(390, 614);
             this.SendPage.TabIndex = 0;
             this.SendPage.Text = "Send";
             // 
@@ -136,6 +136,8 @@
             this.pnlTools.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlTools.Controls.Add(this.emojiLayout);
+            this.pnlTools.Controls.Add(this.btnEmoji);
             this.pnlTools.Controls.Add(this.btnSend);
             this.pnlTools.Controls.Add(this.btnAlignRight);
             this.pnlTools.Controls.Add(this.btnAlignLeft);
@@ -147,8 +149,21 @@
             this.pnlTools.Enabled = false;
             this.pnlTools.Location = new System.Drawing.Point(3, 90);
             this.pnlTools.Name = "pnlTools";
-            this.pnlTools.Size = new System.Drawing.Size(386, 526);
+            this.pnlTools.Size = new System.Drawing.Size(384, 530);
             this.pnlTools.TabIndex = 28;
+            // 
+            // btnEmoji
+            // 
+            this.btnEmoji.BackgroundImage = global::TeleBotMessenger.Properties.Resources.emoji;
+            this.btnEmoji.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnEmoji.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEmoji.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEmoji.Location = new System.Drawing.Point(17, 295);
+            this.btnEmoji.Name = "btnEmoji";
+            this.btnEmoji.Size = new System.Drawing.Size(30, 30);
+            this.btnEmoji.TabIndex = 36;
+            this.btnEmoji.UseVisualStyleBackColor = true;
+            this.btnEmoji.Click += new System.EventHandler(this.btnEmoji_Click);
             // 
             // btnSend
             // 
@@ -156,11 +171,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSend.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSend.Depth = 0;
-            this.btnSend.Location = new System.Drawing.Point(5, 491);
+            this.btnSend.Location = new System.Drawing.Point(5, 494);
             this.btnSend.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSend.Name = "btnSend";
             this.btnSend.Primary = true;
-            this.btnSend.Size = new System.Drawing.Size(376, 29);
+            this.btnSend.Size = new System.Drawing.Size(374, 29);
             this.btnSend.TabIndex = 35;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
@@ -197,9 +212,9 @@
             this.layout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.layout.AutoScroll = true;
-            this.layout.Location = new System.Drawing.Point(3, 366);
+            this.layout.Location = new System.Drawing.Point(3, 359);
             this.layout.Name = "layout";
-            this.layout.Size = new System.Drawing.Size(380, 119);
+            this.layout.Size = new System.Drawing.Size(380, 130);
             this.layout.TabIndex = 32;
             // 
             // btnAddRow
@@ -208,7 +223,7 @@
             this.btnAddRow.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.btnAddRow.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddRow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddRow.Location = new System.Drawing.Point(17, 295);
+            this.btnAddRow.Location = new System.Drawing.Point(17, 324);
             this.btnAddRow.Name = "btnAddRow";
             this.btnAddRow.Size = new System.Drawing.Size(30, 30);
             this.btnAddRow.TabIndex = 31;
@@ -230,11 +245,16 @@
             // 
             // rtxtText
             // 
-            this.rtxtText.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtxtText.Location = new System.Drawing.Point(54, 207);
+            this.rtxtText.AutoWordSelection = true;
+            this.rtxtText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.rtxtText.EnableAutoDragDrop = true;
+            this.rtxtText.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtText.Location = new System.Drawing.Point(54, 208);
             this.rtxtText.Margin = new System.Windows.Forms.Padding(2);
             this.rtxtText.Name = "rtxtText";
-            this.rtxtText.Size = new System.Drawing.Size(305, 156);
+            this.rtxtText.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.rtxtText.ShowSelectionMargin = true;
+            this.rtxtText.Size = new System.Drawing.Size(305, 146);
             this.rtxtText.TabIndex = 28;
             this.rtxtText.Text = "";
             // 
@@ -243,7 +263,7 @@
             this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTest.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTest.Depth = 0;
-            this.btnTest.Location = new System.Drawing.Point(293, 55);
+            this.btnTest.Location = new System.Drawing.Point(291, 55);
             this.btnTest.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnTest.Name = "btnTest";
             this.btnTest.Primary = true;
@@ -267,7 +287,7 @@
             this.txtChannelName.SelectedText = "";
             this.txtChannelName.SelectionLength = 0;
             this.txtChannelName.SelectionStart = 0;
-            this.txtChannelName.Size = new System.Drawing.Size(270, 23);
+            this.txtChannelName.Size = new System.Drawing.Size(268, 23);
             this.txtChannelName.TabIndex = 19;
             this.txtChannelName.UseSystemPasswordChar = false;
             // 
@@ -285,91 +305,113 @@
             this.txtBotToken.SelectedText = "";
             this.txtBotToken.SelectionLength = 0;
             this.txtBotToken.SelectionStart = 0;
-            this.txtBotToken.Size = new System.Drawing.Size(270, 23);
+            this.txtBotToken.Size = new System.Drawing.Size(268, 23);
             this.txtBotToken.TabIndex = 7;
             this.txtBotToken.UseSystemPasswordChar = false;
             // 
             // EditPage
             // 
             this.EditPage.Controls.Add(this.btnEdit);
-            this.EditPage.Controls.Add(this.lstMessages);
+            this.EditPage.Controls.Add(this.lstSentMessages);
             this.EditPage.Location = new System.Drawing.Point(4, 21);
             this.EditPage.Name = "EditPage";
             this.EditPage.Padding = new System.Windows.Forms.Padding(3);
-            this.EditPage.Size = new System.Drawing.Size(392, 619);
+            this.EditPage.Size = new System.Drawing.Size(390, 614);
             this.EditPage.TabIndex = 1;
             this.EditPage.Text = "Edit";
             this.EditPage.UseVisualStyleBackColor = true;
             // 
             // btnEdit
             // 
-            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEdit.Location = new System.Drawing.Point(170, 155);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEdit.Depth = 0;
+            this.btnEdit.Location = new System.Drawing.Point(7, 579);
+            this.btnEdit.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(127, 37);
-            this.btnEdit.TabIndex = 13;
+            this.btnEdit.Primary = true;
+            this.btnEdit.Size = new System.Drawing.Size(374, 29);
+            this.btnEdit.TabIndex = 36;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
-            // lstMessages
+            // lstSentMessages
             // 
-            this.lstMessages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lstSentMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lstMessages.FormattingEnabled = true;
-            this.lstMessages.ItemHeight = 12;
-            this.lstMessages.Location = new System.Drawing.Point(170, 197);
-            this.lstMessages.Name = "lstMessages";
-            this.lstMessages.Size = new System.Drawing.Size(128, 148);
-            this.lstMessages.TabIndex = 12;
+            this.lstSentMessages.FormattingEnabled = true;
+            this.lstSentMessages.ItemHeight = 12;
+            this.lstSentMessages.Location = new System.Drawing.Point(7, 6);
+            this.lstSentMessages.Name = "lstSentMessages";
+            this.lstSentMessages.Size = new System.Drawing.Size(374, 568);
+            this.lstSentMessages.TabIndex = 12;
             // 
-            // tbAbout
+            // picAbout
             // 
-            this.tbAbout.Controls.Add(this.pictureBox1);
-            this.tbAbout.Location = new System.Drawing.Point(4, 21);
-            this.tbAbout.Name = "tbAbout";
-            this.tbAbout.Padding = new System.Windows.Forms.Padding(3);
-            this.tbAbout.Size = new System.Drawing.Size(392, 619);
-            this.tbAbout.TabIndex = 2;
-            this.tbAbout.Text = "About";
-            this.tbAbout.UseVisualStyleBackColor = true;
+            this.picAbout.BackColor = System.Drawing.Color.Transparent;
+            this.picAbout.BackgroundImage = global::TeleBotMessenger.Properties.Resources.icon;
+            this.picAbout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.picAbout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picAbout.Location = new System.Drawing.Point(0, 3);
+            this.picAbout.Name = "picAbout";
+            this.picAbout.Size = new System.Drawing.Size(41, 43);
+            this.picAbout.TabIndex = 9;
+            this.picAbout.TabStop = false;
+            this.picAbout.Click += new System.EventHandler(this.picAbout_Click);
             // 
-            // pictureBox1
+            // picNightMode
             // 
-            this.pictureBox1.Image = global::TeleBotMessenger.Properties.Resources.icon;
-            this.pictureBox1.Location = new System.Drawing.Point(8, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(148, 148);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.picNightMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picNightMode.BackColor = System.Drawing.Color.Transparent;
+            this.picNightMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picNightMode.Image = global::TeleBotMessenger.Properties.Resources.dark_moon;
+            this.picNightMode.Location = new System.Drawing.Point(296, -1);
+            this.picNightMode.Name = "picNightMode";
+            this.picNightMode.Size = new System.Drawing.Size(24, 24);
+            this.picNightMode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picNightMode.TabIndex = 11;
+            this.picNightMode.TabStop = false;
             // 
-            // pictureBox2
+            // emojiLayout
             // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.BackgroundImage = global::TeleBotMessenger.Properties.Resources.icon;
-            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox2.Location = new System.Drawing.Point(-2, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(48, 48);
-            this.pictureBox2.TabIndex = 9;
-            this.pictureBox2.TabStop = false;
+            this.emojiLayout.AutoScroll = true;
+            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
+            this.emojiLayout.Location = new System.Drawing.Point(54, 11);
+            this.emojiLayout.Name = "emojiLayout";
+            this.emojiLayout.Size = new System.Drawing.Size(305, 190);
+            this.emojiLayout.TabIndex = 37;
+            this.emojiLayout.Visible = false;
+            this.emojiLayout.OnEmojiClick += new System.EventHandler(this.emojiLayout_OnEmojiClick);
+            // 
+            // progress
+            // 
+            this.progress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progress.Location = new System.Drawing.Point(1, 24);
+            this.progress.Name = "progress";
+            this.progress.Size = new System.Drawing.Size(399, 1);
+            this.progress.Step = 1;
+            this.progress.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progress.TabIndex = 12;
+            this.progress.Visible = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(400, 753);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.picAbout);
+            this.Controls.Add(this.progress);
+            this.Controls.Add(this.picNightMode);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.tabSelector);
             this.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(290, 600);
+            this.MinimumSize = new System.Drawing.Size(400, 600);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Telegram Bot Messenger";
@@ -378,10 +420,10 @@
             this.SendPage.ResumeLayout(false);
             this.pnlTools.ResumeLayout(false);
             this.EditPage.ResumeLayout(false);
-            this.tbAbout.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picAbout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picNightMode)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -391,7 +433,6 @@
         private MaterialSkin.Controls.MaterialTabControl tabControl;
         private System.Windows.Forms.TabPage SendPage;
         private System.Windows.Forms.TabPage EditPage;
-        private System.Windows.Forms.Button btnEdit;
         private MaterialSkin.Controls.MaterialRaisedButton btnConnect;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtBotToken;
         private MaterialSkin.Controls.MaterialRaisedButton btnTest;
@@ -404,10 +445,13 @@
         private System.Windows.Forms.Button btnAddLink;
         private System.Windows.Forms.RichTextBox rtxtText;
         private MaterialSkin.Controls.MaterialRaisedButton btnSend;
-        private System.Windows.Forms.TabPage tbAbout;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ListBox lstMessages;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ListBox lstSentMessages;
+        private System.Windows.Forms.PictureBox picAbout;
+        private System.Windows.Forms.Button btnEmoji;
+        private Model.EmojiLayout emojiLayout;
+        private MaterialSkin.Controls.MaterialRaisedButton btnEdit;
+        private System.Windows.Forms.PictureBox picNightMode;
+        private System.Windows.Forms.ProgressBar progress;
     }
 }
 
