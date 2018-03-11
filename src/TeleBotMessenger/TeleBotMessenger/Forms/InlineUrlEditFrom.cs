@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using MaterialSkin;
 using MaterialSkin.Controls;
 using TeleBotMessenger.Model;
 
@@ -13,6 +14,9 @@ namespace TeleBotMessenger.Forms
         private InlineUrlEditFrom()
         {
             InitializeComponent();
+
+            var msm = MaterialSkinManager.Instance;
+            msm.AddFormToManage(this);
         }
 
         public static InlineUrlEditFrom GetInstance(InlineUrlButton value)

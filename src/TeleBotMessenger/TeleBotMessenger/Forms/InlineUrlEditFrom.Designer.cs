@@ -142,7 +142,7 @@
             this.Name = "InlineUrlEditFrom";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Inline Url Button";
             this.TopMost = true;
             this.tabControl.ResumeLayout(false);

@@ -2825,6 +2825,9 @@
     <None Include="Resources\3299.png" />
     <None Include="Resources\moon32.png" />
     <None Include="Resources\moon.png" />
+    <None Include="Resources\dark_hover_moon.png" />
+    <None Include="Resources\dark_moon.png" />
+    <None Include="Resources\light_moon.png" />
     <Content Include="VersionUpdater.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>VersionUpdater.txt</LastGenOutput>

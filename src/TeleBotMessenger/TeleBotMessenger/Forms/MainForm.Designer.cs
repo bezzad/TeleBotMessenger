@@ -35,6 +35,7 @@
             this.tabControl = new MaterialSkin.Controls.MaterialTabControl();
             this.SendPage = new System.Windows.Forms.TabPage();
             this.pnlTools = new System.Windows.Forms.Panel();
+            this.emojiLayout = new TeleBotMessenger.Model.EmojiLayout();
             this.btnEmoji = new System.Windows.Forms.Button();
             this.btnSend = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnAlignRight = new System.Windows.Forms.Button();
@@ -50,14 +51,14 @@
             this.btnEdit = new MaterialSkin.Controls.MaterialRaisedButton();
             this.lstSentMessages = new System.Windows.Forms.ListBox();
             this.picAbout = new System.Windows.Forms.PictureBox();
-            this.chkNightMode = new System.Windows.Forms.CheckBox();
-            this.emojiLayout = new TeleBotMessenger.Model.EmojiLayout();
+            this.picNightMode = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pix)).BeginInit();
             this.tabControl.SuspendLayout();
             this.SendPage.SuspendLayout();
             this.pnlTools.SuspendLayout();
             this.EditPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAbout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picNightMode)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConnect
@@ -149,6 +150,17 @@
             this.pnlTools.Name = "pnlTools";
             this.pnlTools.Size = new System.Drawing.Size(384, 527);
             this.pnlTools.TabIndex = 28;
+            // 
+            // emojiLayout
+            // 
+            this.emojiLayout.AutoScroll = true;
+            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
+            this.emojiLayout.Location = new System.Drawing.Point(54, 11);
+            this.emojiLayout.Name = "emojiLayout";
+            this.emojiLayout.Size = new System.Drawing.Size(305, 190);
+            this.emojiLayout.TabIndex = 37;
+            this.emojiLayout.Visible = false;
+            this.emojiLayout.OnEmojiClick += new System.EventHandler(this.emojiLayout_OnEmojiClick);
             // 
             // btnEmoji
             // 
@@ -314,7 +326,7 @@
             this.EditPage.Location = new System.Drawing.Point(4, 21);
             this.EditPage.Name = "EditPage";
             this.EditPage.Padding = new System.Windows.Forms.Padding(3);
-            this.EditPage.Size = new System.Drawing.Size(390, 610);
+            this.EditPage.Size = new System.Drawing.Size(390, 614);
             this.EditPage.TabIndex = 1;
             this.EditPage.Text = "Edit";
             this.EditPage.UseVisualStyleBackColor = true;
@@ -360,45 +372,25 @@
             this.picAbout.TabStop = false;
             this.picAbout.Click += new System.EventHandler(this.picAbout_Click);
             // 
-            // chkNightMode
+            // picNightMode
             // 
-            this.chkNightMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkNightMode.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chkNightMode.AutoEllipsis = true;
-            this.chkNightMode.BackColor = System.Drawing.Color.Transparent;
-            this.chkNightMode.Checked = true;
-            this.chkNightMode.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkNightMode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkNightMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.chkNightMode.Font = new System.Drawing.Font("Segoe UI", 7.8F);
-            this.chkNightMode.Image = global::TeleBotMessenger.Properties.Resources.moon;
-            this.chkNightMode.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.chkNightMode.Location = new System.Drawing.Point(290, 28);
-            this.chkNightMode.Name = "chkNightMode";
-            this.chkNightMode.Size = new System.Drawing.Size(105, 30);
-            this.chkNightMode.TabIndex = 10;
-            this.chkNightMode.Text = "      Night Mode";
-            this.chkNightMode.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkNightMode.UseVisualStyleBackColor = false;
-            this.chkNightMode.CheckedChanged += new System.EventHandler(this.chkNightMode_CheckedChanged);
-            // 
-            // emojiLayout
-            // 
-            this.emojiLayout.AutoScroll = true;
-            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
-            this.emojiLayout.Location = new System.Drawing.Point(54, 11);
-            this.emojiLayout.Name = "emojiLayout";
-            this.emojiLayout.Size = new System.Drawing.Size(305, 190);
-            this.emojiLayout.TabIndex = 37;
-            this.emojiLayout.Visible = false;
-            this.emojiLayout.OnEmojiClick += new System.EventHandler(this.emojiLayout_OnEmojiClick);
+            this.picNightMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picNightMode.BackColor = System.Drawing.Color.Transparent;
+            this.picNightMode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picNightMode.Image = global::TeleBotMessenger.Properties.Resources.dark_moon;
+            this.picNightMode.Location = new System.Drawing.Point(296, -1);
+            this.picNightMode.Name = "picNightMode";
+            this.picNightMode.Size = new System.Drawing.Size(24, 24);
+            this.picNightMode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.picNightMode.TabIndex = 11;
+            this.picNightMode.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(400, 753);
-            this.Controls.Add(this.chkNightMode);
+            this.Controls.Add(this.picNightMode);
             this.Controls.Add(this.picAbout);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.tabSelector);
@@ -415,7 +407,9 @@
             this.pnlTools.ResumeLayout(false);
             this.EditPage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picAbout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picNightMode)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -441,8 +435,8 @@
         private System.Windows.Forms.PictureBox picAbout;
         private System.Windows.Forms.Button btnEmoji;
         private Model.EmojiLayout emojiLayout;
-        private System.Windows.Forms.CheckBox chkNightMode;
         private MaterialSkin.Controls.MaterialRaisedButton btnEdit;
+        private System.Windows.Forms.PictureBox picNightMode;
     }
 }
 

@@ -22,17 +22,44 @@ namespace TeleBotMessenger.Forms
         private Image MsgImage { get; set; }
         private Font EmojiFont { get; } = new Font(@"Segoe UI Symbol", 11f, FontStyle.Bold);
         private Font RichTextBoxFont { get; } = new Font(@"Time News Roman", 11f, FontStyle.Regular);
+        private MaterialSkinManager MaterialSkinManager { get; } = MaterialSkinManager.Instance;
 
         public MainForm()
         {
             InitializeComponent();
             Text += @" " + AssemblyInfo.Version.ToString(3);
-            var materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue800, Primary.Blue500, Accent.Pink200, TextShade.WHITE);
+            MaterialSkinManager.AddFormToManage(this);
+            MaterialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            MaterialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue800, Primary.Blue500, Accent.Pink200, TextShade.WHITE);
 
             rtxtText.Font = RichTextBoxFont;
+
+           
+            picNightMode.MouseHover += (s, e) =>
+            {
+                if (MaterialSkinManager.Theme == MaterialSkinManager.Themes.DARK)
+                    picNightMode.Image = Resources.dark_hover_moon;
+            };
+
+            picNightMode.MouseLeave += (s, e) =>
+            {
+                if (MaterialSkinManager.Theme == MaterialSkinManager.Themes.DARK)
+                    picNightMode.Image = Resources.dark_moon;
+            };
+
+            picNightMode.Click += (s, e) =>
+            {
+                if (MaterialSkinManager.Theme == MaterialSkinManager.Themes.LIGHT)
+                {
+                    MaterialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+                    picNightMode.Image = Resources.dark_moon;
+                }
+                else
+                {
+                    MaterialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+                    picNightMode.Image = Resources.light_moon;
+                }
+            };
         }
 
         public IReplyMarkup GetKeyboardButtons()
@@ -233,21 +260,6 @@ namespace TeleBotMessenger.Forms
             await emojiLayout.Load();
         }
 
-        private void chkNightMode_CheckedChanged(object sender, EventArgs e)
-        {
-            var materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-
-            if (chkNightMode.Checked) // is night mode
-            {
-                materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
-            }
-            else
-            {
-                materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            }
-        }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             var selectedRow = lstSentMessages.SelectedItem as TelegramMessage;
@@ -266,5 +278,7 @@ namespace TeleBotMessenger.Forms
 
             txtChannelName.Text = selectedRow?.Message?.Chat?.Username;
         }
+
+
     }
 }
