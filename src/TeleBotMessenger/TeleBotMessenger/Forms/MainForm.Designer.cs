@@ -35,6 +35,8 @@
             this.tabControl = new MaterialSkin.Controls.MaterialTabControl();
             this.SendPage = new System.Windows.Forms.TabPage();
             this.pnlTools = new System.Windows.Forms.Panel();
+            this.lblRemainChar = new System.Windows.Forms.Label();
+            this.emojiLayout = new TeleBotMessenger.Model.EmojiLayout();
             this.btnEmoji = new System.Windows.Forms.Button();
             this.btnSend = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnAlignRight = new System.Windows.Forms.Button();
@@ -51,7 +53,6 @@
             this.lstSentMessages = new System.Windows.Forms.ListBox();
             this.picAbout = new System.Windows.Forms.PictureBox();
             this.picNightMode = new System.Windows.Forms.PictureBox();
-            this.emojiLayout = new TeleBotMessenger.Model.EmojiLayout();
             this.progress = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pix)).BeginInit();
             this.tabControl.SuspendLayout();
@@ -136,6 +137,7 @@
             this.pnlTools.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlTools.Controls.Add(this.lblRemainChar);
             this.pnlTools.Controls.Add(this.emojiLayout);
             this.pnlTools.Controls.Add(this.btnEmoji);
             this.pnlTools.Controls.Add(this.btnSend);
@@ -151,6 +153,29 @@
             this.pnlTools.Name = "pnlTools";
             this.pnlTools.Size = new System.Drawing.Size(384, 530);
             this.pnlTools.TabIndex = 28;
+            // 
+            // lblRemainChar
+            // 
+            this.lblRemainChar.AutoEllipsis = true;
+            this.lblRemainChar.BackColor = System.Drawing.Color.Transparent;
+            this.lblRemainChar.ForeColor = System.Drawing.Color.Black;
+            this.lblRemainChar.Location = new System.Drawing.Point(14, 185);
+            this.lblRemainChar.Name = "lblRemainChar";
+            this.lblRemainChar.Size = new System.Drawing.Size(35, 20);
+            this.lblRemainChar.TabIndex = 38;
+            this.lblRemainChar.Text = "4096";
+            this.lblRemainChar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // emojiLayout
+            // 
+            this.emojiLayout.AutoScroll = true;
+            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
+            this.emojiLayout.Location = new System.Drawing.Point(54, 11);
+            this.emojiLayout.Name = "emojiLayout";
+            this.emojiLayout.Size = new System.Drawing.Size(305, 190);
+            this.emojiLayout.TabIndex = 37;
+            this.emojiLayout.Visible = false;
+            this.emojiLayout.OnEmojiClick += new System.EventHandler(this.emojiLayout_OnEmojiClick);
             // 
             // btnEmoji
             // 
@@ -342,11 +367,14 @@
             this.lstSentMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstSentMessages.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lstSentMessages.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstSentMessages.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(150)))), ((int)(((byte)(147)))));
             this.lstSentMessages.FormattingEnabled = true;
-            this.lstSentMessages.ItemHeight = 12;
+            this.lstSentMessages.ItemHeight = 20;
             this.lstSentMessages.Location = new System.Drawing.Point(7, 6);
             this.lstSentMessages.Name = "lstSentMessages";
-            this.lstSentMessages.Size = new System.Drawing.Size(374, 568);
+            this.lstSentMessages.Size = new System.Drawing.Size(374, 564);
             this.lstSentMessages.TabIndex = 12;
             // 
             // picAbout
@@ -374,17 +402,6 @@
             this.picNightMode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picNightMode.TabIndex = 11;
             this.picNightMode.TabStop = false;
-            // 
-            // emojiLayout
-            // 
-            this.emojiLayout.AutoScroll = true;
-            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
-            this.emojiLayout.Location = new System.Drawing.Point(54, 11);
-            this.emojiLayout.Name = "emojiLayout";
-            this.emojiLayout.Size = new System.Drawing.Size(305, 190);
-            this.emojiLayout.TabIndex = 37;
-            this.emojiLayout.Visible = false;
-            this.emojiLayout.OnEmojiClick += new System.EventHandler(this.emojiLayout_OnEmojiClick);
             // 
             // progress
             // 
@@ -452,6 +469,7 @@
         private MaterialSkin.Controls.MaterialRaisedButton btnEdit;
         private System.Windows.Forms.PictureBox picNightMode;
         private System.Windows.Forms.ProgressBar progress;
+        private System.Windows.Forms.Label lblRemainChar;
     }
 }
 

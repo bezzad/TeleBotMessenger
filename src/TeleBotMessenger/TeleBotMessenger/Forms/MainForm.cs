@@ -18,9 +18,20 @@ namespace TeleBotMessenger.Forms
 {
     public sealed partial class MainForm : MaterialForm
     {
+        private Image _msgImage;
+
         private User BotUser { get; set; }
         private string ChannelName => txtChannelName.Text.StartsWith("@") ? txtChannelName.Text : @"@" + txtChannelName.Text;
-        private Image MsgImage { get; set; }
+        private Image MsgImage
+        {
+            get => _msgImage;
+            set
+            {
+                _msgImage = value;
+                btnAddLink.Enabled = _msgImage == null;
+                UpdateTextLength();
+            }
+        }
         private Font EmojiFont { get; } = new Font(@"Segoe UI Symbol", 11f, FontStyle.Bold);
         private Font RichTextBoxFont { get; } = new Font(@"Time News Roman", 11f, FontStyle.Regular);
         private MaterialSkinManager MaterialSkinManager { get; } = MaterialSkinManager.Instance;
@@ -35,6 +46,7 @@ namespace TeleBotMessenger.Forms
 
             rtxtText.Font = RichTextBoxFont;
             lstSentMessages.BackColor = lstSentMessages.Parent.BackColor;
+            MsgImage = null;
 
             picNightMode.MouseHover += (s, e) =>
             {
@@ -63,6 +75,8 @@ namespace TeleBotMessenger.Forms
 
                 lstSentMessages.BackColor = lstSentMessages.Parent.BackColor;
             };
+
+            rtxtText.KeyUp += (s, e) => UpdateTextLength();
         }
 
         public IReplyMarkup GetKeyboardButtons()
@@ -240,29 +254,29 @@ namespace TeleBotMessenger.Forms
         {
             await Task.Run(async () =>
             {
-                 var title = Text;
-                 this.ThreadSafeCall(() => progress.Show());
+                var title = Text;
+                this.ThreadSafeCall(() => progress.Show());
 
-                 this.ThreadSafeCall(() => Text = AssemblyInfo.Copyright);
-                 await Task.Delay(1000);
+                this.ThreadSafeCall(() => Text = AssemblyInfo.Copyright);
+                await Task.Delay(1000);
 
-                 this.ThreadSafeCall(() => Text = AssemblyInfo.Company);
-                 await Task.Delay(1000);
+                this.ThreadSafeCall(() => Text = AssemblyInfo.Company);
+                await Task.Delay(1000);
 
-                 this.ThreadSafeCall(() => Text = AssemblyInfo.Trademark);
-                 await Task.Delay(1000);
+                this.ThreadSafeCall(() => Text = AssemblyInfo.Trademark);
+                await Task.Delay(1000);
 
-                 this.ThreadSafeCall(() => Text = AssemblyInfo.Description);
-                 await Task.Delay(2000);
+                this.ThreadSafeCall(() => Text = AssemblyInfo.Description);
+                await Task.Delay(2000);
 
-                 this.ThreadSafeCall(() => Text = AssemblyInfo.Title);
-                 await Task.Delay(1000);
+                this.ThreadSafeCall(() => Text = AssemblyInfo.Title);
+                await Task.Delay(1000);
 
-                 this.ThreadSafeCall(() => Text = title);
-                 await Task.Delay(1000);
+                this.ThreadSafeCall(() => Text = title);
+                await Task.Delay(1000);
 
-                 this.ThreadSafeCall(() => progress.Hide());
-             });
+                this.ThreadSafeCall(() => progress.Hide());
+            });
         }
 
         private void emojiLayout_OnEmojiClick(object sender, EventArgs e)
@@ -304,10 +318,19 @@ namespace TeleBotMessenger.Forms
             }
 
             txtChannelName.Text = selectedRow?.Message?.Chat?.Username;
+
+            SendPage.Show();
         }
 
+        private void UpdateTextLength()
+        {
+            var maxLen = 4096;
+            if (MsgImage != null) // Photo Message
+                maxLen = 200;
 
-
-
+            var remain = maxLen - rtxtText.Text.Length;
+            lblRemainChar.Text = remain.ToString();
+            lblRemainChar.ForeColor = remain < 0 ? Color.Red : Color.Black;
+        }
     }
 }
