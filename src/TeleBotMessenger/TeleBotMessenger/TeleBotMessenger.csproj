@@ -67,6 +67,7 @@
       <DependentUpon>InlineUrlEditFrom.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\Emoji.cs" />
+    <Compile Include="Helper\WindowsHelper.cs" />
     <Compile Include="Model\EmojiLayout.cs">
       <SubType>Component</SubType>
     </Compile>

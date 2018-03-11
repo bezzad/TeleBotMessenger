@@ -35,7 +35,6 @@
             this.tabControl = new MaterialSkin.Controls.MaterialTabControl();
             this.SendPage = new System.Windows.Forms.TabPage();
             this.pnlTools = new System.Windows.Forms.Panel();
-            this.emojiLayout = new TeleBotMessenger.Model.EmojiLayout();
             this.btnEmoji = new System.Windows.Forms.Button();
             this.btnSend = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnAlignRight = new System.Windows.Forms.Button();
@@ -52,6 +51,8 @@
             this.lstSentMessages = new System.Windows.Forms.ListBox();
             this.picAbout = new System.Windows.Forms.PictureBox();
             this.picNightMode = new System.Windows.Forms.PictureBox();
+            this.emojiLayout = new TeleBotMessenger.Model.EmojiLayout();
+            this.progress = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.pix)).BeginInit();
             this.tabControl.SuspendLayout();
             this.SendPage.SuspendLayout();
@@ -148,19 +149,8 @@
             this.pnlTools.Enabled = false;
             this.pnlTools.Location = new System.Drawing.Point(3, 90);
             this.pnlTools.Name = "pnlTools";
-            this.pnlTools.Size = new System.Drawing.Size(384, 527);
+            this.pnlTools.Size = new System.Drawing.Size(384, 530);
             this.pnlTools.TabIndex = 28;
-            // 
-            // emojiLayout
-            // 
-            this.emojiLayout.AutoScroll = true;
-            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
-            this.emojiLayout.Location = new System.Drawing.Point(54, 11);
-            this.emojiLayout.Name = "emojiLayout";
-            this.emojiLayout.Size = new System.Drawing.Size(305, 190);
-            this.emojiLayout.TabIndex = 37;
-            this.emojiLayout.Visible = false;
-            this.emojiLayout.OnEmojiClick += new System.EventHandler(this.emojiLayout_OnEmojiClick);
             // 
             // btnEmoji
             // 
@@ -181,7 +171,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSend.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSend.Depth = 0;
-            this.btnSend.Location = new System.Drawing.Point(5, 491);
+            this.btnSend.Location = new System.Drawing.Point(5, 494);
             this.btnSend.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSend.Name = "btnSend";
             this.btnSend.Primary = true;
@@ -224,7 +214,7 @@
             this.layout.AutoScroll = true;
             this.layout.Location = new System.Drawing.Point(3, 359);
             this.layout.Name = "layout";
-            this.layout.Size = new System.Drawing.Size(380, 127);
+            this.layout.Size = new System.Drawing.Size(380, 130);
             this.layout.TabIndex = 32;
             // 
             // btnAddRow
@@ -385,13 +375,37 @@
             this.picNightMode.TabIndex = 11;
             this.picNightMode.TabStop = false;
             // 
+            // emojiLayout
+            // 
+            this.emojiLayout.AutoScroll = true;
+            this.emojiLayout.BackColor = System.Drawing.Color.Transparent;
+            this.emojiLayout.Location = new System.Drawing.Point(54, 11);
+            this.emojiLayout.Name = "emojiLayout";
+            this.emojiLayout.Size = new System.Drawing.Size(305, 190);
+            this.emojiLayout.TabIndex = 37;
+            this.emojiLayout.Visible = false;
+            this.emojiLayout.OnEmojiClick += new System.EventHandler(this.emojiLayout_OnEmojiClick);
+            // 
+            // progress
+            // 
+            this.progress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progress.Location = new System.Drawing.Point(1, 24);
+            this.progress.Name = "progress";
+            this.progress.Size = new System.Drawing.Size(399, 1);
+            this.progress.Step = 1;
+            this.progress.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progress.TabIndex = 12;
+            this.progress.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(400, 753);
-            this.Controls.Add(this.picNightMode);
             this.Controls.Add(this.picAbout);
+            this.Controls.Add(this.progress);
+            this.Controls.Add(this.picNightMode);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.tabSelector);
             this.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -437,6 +451,7 @@
         private Model.EmojiLayout emojiLayout;
         private MaterialSkin.Controls.MaterialRaisedButton btnEdit;
         private System.Windows.Forms.PictureBox picNightMode;
+        private System.Windows.Forms.ProgressBar progress;
     }
 }
 

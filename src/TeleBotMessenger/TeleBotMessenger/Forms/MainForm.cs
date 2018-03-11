@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin;
 using MaterialSkin.Controls;
@@ -33,8 +34,8 @@ namespace TeleBotMessenger.Forms
             MaterialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue800, Primary.Blue500, Accent.Pink200, TextShade.WHITE);
 
             rtxtText.Font = RichTextBoxFont;
+            lstSentMessages.BackColor = lstSentMessages.Parent.BackColor;
 
-           
             picNightMode.MouseHover += (s, e) =>
             {
                 if (MaterialSkinManager.Theme == MaterialSkinManager.Themes.DARK)
@@ -59,6 +60,8 @@ namespace TeleBotMessenger.Forms
                     MaterialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
                     picNightMode.Image = Resources.light_moon;
                 }
+
+                lstSentMessages.BackColor = lstSentMessages.Parent.BackColor;
             };
         }
 
@@ -233,9 +236,33 @@ namespace TeleBotMessenger.Forms
             }
         }
 
-        private void picAbout_Click(object sender, EventArgs e)
+        private async void picAbout_Click(object sender, EventArgs e)
         {
+            await Task.Run(async () =>
+            {
+                 var title = Text;
+                 this.ThreadSafeCall(() => progress.Show());
 
+                 this.ThreadSafeCall(() => Text = AssemblyInfo.Copyright);
+                 await Task.Delay(1000);
+
+                 this.ThreadSafeCall(() => Text = AssemblyInfo.Company);
+                 await Task.Delay(1000);
+
+                 this.ThreadSafeCall(() => Text = AssemblyInfo.Trademark);
+                 await Task.Delay(1000);
+
+                 this.ThreadSafeCall(() => Text = AssemblyInfo.Description);
+                 await Task.Delay(2000);
+
+                 this.ThreadSafeCall(() => Text = AssemblyInfo.Title);
+                 await Task.Delay(1000);
+
+                 this.ThreadSafeCall(() => Text = title);
+                 await Task.Delay(1000);
+
+                 this.ThreadSafeCall(() => progress.Hide());
+             });
         }
 
         private void emojiLayout_OnEmojiClick(object sender, EventArgs e)
@@ -278,6 +305,8 @@ namespace TeleBotMessenger.Forms
 
             txtChannelName.Text = selectedRow?.Message?.Chat?.Username;
         }
+
+
 
 
     }

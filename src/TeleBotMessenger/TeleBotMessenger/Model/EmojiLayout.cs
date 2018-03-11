@@ -35,26 +35,10 @@ namespace TeleBotMessenger.Model
                             Size = new Size(32, 32)
                         };
                         btnEmoji.Click += (se, ev) => OnEmojiClick.Invoke(se, ev);
-
-                        ThreadSafeAddControl(btnEmoji);
+                        this.ThreadSafeCall(()=> Controls.Add(btnEmoji));
                     }
                 }
             });
-        }
-
-        public void ThreadSafeAddControl(Control ctrl)
-        {
-            // InvokeRequired required compares the thread ID of the  
-            // calling thread to the thread ID of the creating thread.  
-            // If these threads are different, it returns true.  
-            if (InvokeRequired)
-            {
-                Invoke(new Action(delegate { ThreadSafeAddControl(ctrl); }));
-            }
-            else
-            {
-                Controls.Add(ctrl);
-            }
         }
     }
 }
