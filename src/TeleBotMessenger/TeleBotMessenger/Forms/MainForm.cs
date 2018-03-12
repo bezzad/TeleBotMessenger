@@ -42,6 +42,7 @@ namespace TeleBotMessenger.Forms
         public MainForm()
         {
             InitializeComponent();
+
             Text += @" " + AssemblyInfo.Version.ToString(3);
             MaterialSkinManager.AddFormToManage(this);
             MaterialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
@@ -113,7 +114,7 @@ namespace TeleBotMessenger.Forms
                 rowPanel.Buttons.Clear();
                 foreach (var btn in row)
                 {
-                    rowPanel.Add(new InlineButton
+                    rowPanel.Add(new InlineButton(this)
                     {
                         Text = btn.Text,
                         Address = new Uri(btn.Url)
@@ -123,7 +124,7 @@ namespace TeleBotMessenger.Forms
         }
         private InlinePanel AddRow()
         {
-            var panel = new InlinePanel(layout.Width - 20);
+            var panel = new InlinePanel(layout.Width - 20, this);
             layout.Controls.Add(panel);
             return panel;
         }
@@ -150,6 +151,7 @@ namespace TeleBotMessenger.Forms
                     txtBotToken.Text = @"@" + BotUser.Username;
                     btnConnect.Text = @"Stop";
                     pnlTools.Enabled = true;
+                    pnlTools.UnBlur();
                     txtBotToken.Enabled = false;
                 }
                 else
@@ -159,6 +161,7 @@ namespace TeleBotMessenger.Forms
                     txtBotToken.Text = TelegramHelper.BotManager.BotApiKey;
                     btnConnect.Text = @"Connect";
                     pnlTools.Enabled = false;
+                    pnlTools.Blur();
                     txtBotToken.Enabled = true;
                 }
             }
@@ -294,10 +297,13 @@ namespace TeleBotMessenger.Forms
             rtxtText.SelectedText = " ";
             rtxtText.Focus();
         }
-
-        protected override async void OnLoad(EventArgs e)
+        
+        protected override async void OnShown(EventArgs e)
         {
-            base.OnLoad(e);
+            base.OnShown(e);
+
+            await Task.Delay(500);
+            pnlTools.Blur();
             var lstMessages = await StringHelper.ReadAsync(StoragePath);
             lstSentMessages.Items.AddRange(lstMessages.ToArray());
             await emojiLayout.Load();
@@ -312,6 +318,7 @@ namespace TeleBotMessenger.Forms
             EditedMessage = null;
             pix.Enabled = true;
             layout.Controls.Clear();
+            tabControl.SelectTab(SendPage);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)

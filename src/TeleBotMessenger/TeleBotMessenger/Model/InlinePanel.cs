@@ -8,13 +8,15 @@ namespace TeleBotMessenger.Model
 {
     public class InlinePanel : Panel
     {
+        private Control _parent;
         private readonly Button _addButton;
         private readonly Button _delButton;
         private const int ButtonSpaces = 5;
         public List<InlineButton> Buttons { get; set; } = new List<InlineButton>();
 
-        public InlinePanel(int width)
+        public InlinePanel(int width, Control parent)
         {
+            _parent = parent;
             Size = new Size(width, 38);
             // 
             // btnAddColumn
@@ -66,7 +68,7 @@ namespace TeleBotMessenger.Model
 
         public void Add()
         {
-           Add(new InlineButton());
+            Add(new InlineButton(_parent));
         }
 
         public void Add(InlineButton btn)

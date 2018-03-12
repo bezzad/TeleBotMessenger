@@ -2,16 +2,20 @@
 using System.Drawing;
 using System.Windows.Forms;
 using TeleBotMessenger.Forms;
+using TeleBotMessenger.Helper;
 using TeleBotMessenger.Properties;
 
 namespace TeleBotMessenger.Model
 {
     public sealed class InlineButton : Button
     {
+        private readonly Control _parent;
+
         public Uri Address { get; set; }
 
-        public InlineButton()
+        public InlineButton(Control parent)
         {
+            _parent = parent;
             Cursor = Cursors.Hand;
             Text = @"Button";
             BackColor = Color.FromArgb(53, 58, 64);
@@ -28,7 +32,9 @@ namespace TeleBotMessenger.Model
             if (sender is InlineButton btn)
             {
                 var form = InlineUrlEditFrom.GetInstance(btn);
-                form.ShowDialog(this);
+                _parent.Blur();
+                form.ShowDialog(_parent);
+                _parent.UnBlur();
             }
         }
     }

@@ -10,7 +10,6 @@ namespace TeleBotMessenger.Forms
     {
         public InlineButton Value { get; set; }
 
-
         private InlineUrlEditFrom()
         {
             InitializeComponent();
