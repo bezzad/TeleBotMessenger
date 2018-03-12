@@ -151,6 +151,7 @@ namespace TeleBotMessenger.Forms
                     txtBotToken.Text = @"@" + BotUser.Username;
                     btnConnect.Text = @"Stop";
                     pnlTools.Enabled = true;
+                    pnlTools.UnBlur();
                     txtBotToken.Enabled = false;
                 }
                 else
@@ -160,6 +161,7 @@ namespace TeleBotMessenger.Forms
                     txtBotToken.Text = TelegramHelper.BotManager.BotApiKey;
                     btnConnect.Text = @"Connect";
                     pnlTools.Enabled = false;
+                    pnlTools.Blur();
                     txtBotToken.Enabled = true;
                 }
             }
@@ -295,10 +297,13 @@ namespace TeleBotMessenger.Forms
             rtxtText.SelectedText = " ";
             rtxtText.Focus();
         }
-
-        protected override async void OnLoad(EventArgs e)
+        
+        protected override async void OnShown(EventArgs e)
         {
-            base.OnLoad(e);
+            base.OnShown(e);
+
+            await Task.Delay(500);
+            pnlTools.Blur();
             var lstMessages = await StringHelper.ReadAsync(StoragePath);
             lstSentMessages.Items.AddRange(lstMessages.ToArray());
             await emojiLayout.Load();
@@ -313,6 +318,7 @@ namespace TeleBotMessenger.Forms
             EditedMessage = null;
             pix.Enabled = true;
             layout.Controls.Clear();
+            tabControl.SelectTab(SendPage);
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
