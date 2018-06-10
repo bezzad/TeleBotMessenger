@@ -22,6 +22,8 @@ The easiest way to get started is execute `TeleBotMessenger.exe` file by follow 
 
 * Paste token in the **Bot Token input** and click on **Connect** button and wait to change `connect` state to `stop`;
 
+* Add your bot as administrator user to channel or group which you want to send message (This is not available in Telegram Desktop version);
+
 * Enter channel or group name like `@test` at the input and then you can test it's true channel or not by **Test** button;
 
 * Now you can use the application and enjoy it;
